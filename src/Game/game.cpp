@@ -60,11 +60,11 @@ int main() {
     std::shared_ptr<Shader> lightShader = std::make_shared<LightShader>(lights);
     
     // Load Models
-    std::shared_ptr<Model> sunModel = loader.LoadSimpleModelFromFile("/Users/peter/Desktop/shpere.obj");
-    std::shared_ptr<Model> nanosuitModel = loader.LoadComplexModelFromFile("/Users/peter/Desktop/nanosuit/nanosuit.obj");
-    std::shared_ptr<Model> boxModel = loader.LoadComplexModelFromFile("/Users/peter/Desktop/cube/cube.obj");
-    std::shared_ptr<Model> floorModel = loader.LoadComplexModelFromFile("/Users/peter/Desktop/cube3/cube.obj");
-    std::shared_ptr<Model> lampModel = loader.LoadComplexModelFromFile("/Users/peter/Desktop/cube2/cube2.obj");
+    std::shared_ptr<Model> sunModel = loader.LoadSimpleModelFromFile(MODEL_BASEPATH + "shpere.obj");
+    std::shared_ptr<Model> nanosuitModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "nanosuit/nanosuit.obj");
+    std::shared_ptr<Model> boxModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube/cube.obj");
+    std::shared_ptr<Model> floorModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube3/cube.obj");
+    std::shared_ptr<Model> lampModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube2/cube2.obj");
     
     // Create Entities (and set the translations)
     std::shared_ptr<Entity> sun = std::make_shared<Entity>(sunModel, basicNoTexShader, glm::vec3(0.0f, 10.0f, -10.0f), CL_YELLOW_PALE);

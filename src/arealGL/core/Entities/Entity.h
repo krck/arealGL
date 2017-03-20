@@ -36,6 +36,7 @@
 
 #include "Model.h"
 #include "Shader.h"
+#include "Color.h"
 #include <vec3.hpp>
 #include <mat4x4.hpp>
 
@@ -50,36 +51,36 @@ private:
     glm::mat4 transform = glm::mat4();
     glm::vec3 position, rotation;
     float angle, scale;
-    glm::vec3 color;
+    Color color;
     
 public:
     Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader)
-    : model(model), shader(shader), position(glm::vec3()), rotation(glm::vec3()), angle(0.0f), scale(1.0f), color(glm::vec3(1.0f)) { }
+    : model(model), shader(shader), position(glm::vec3()), rotation(glm::vec3()), angle(0.0f), scale(1.0f), color(Color()) { }
     
-    Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, const glm::vec3& position, const glm::vec3& color)
+    Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, const glm::vec3& position, const Color& color)
     : model(model), shader(shader), position(position), rotation(glm::vec3()), angle(0.0f), scale(1.0f), color(color) {
         execPosition();
     }
     
-    Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, glm::vec3&& position, glm::vec3&& color)
+    Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, glm::vec3&& position, Color&& color)
     : model(model), shader(shader), position(std::move(position)), rotation(glm::vec3()), angle(0.0f), scale(1.0f), color(std::move(color)) {
         execPosition();
     }
     
-    Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, const glm::vec3& position, float scale, const glm::vec3& color)
+    Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, const glm::vec3& position, float scale, const Color& color)
     : model(model), shader(shader), position(position), rotation(glm::vec3()), angle(0.0f), scale(scale), color((color)) {
         execPosition();
         execScale();
     }
     
-    Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, glm::vec3&& position, float scale, glm::vec3&& color)
+    Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, glm::vec3&& position, float scale, Color&& color)
     : model(model), shader(shader), position(std::move(position)), rotation(glm::vec3()), angle(0.0f), scale(scale), color(std::move(color)) {
         execPosition();
         execScale();
     }
     
     Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, const glm::vec3& position,
-           const glm::vec3& rotation, float angle, float scale, const glm::vec3& color)
+           const glm::vec3& rotation, float angle, float scale, const Color& color)
     : model(model), shader(shader), position(position), rotation(rotation), angle(angle), scale(scale), color(color) {
         execPosition();
         execRotation();
@@ -87,7 +88,7 @@ public:
     }
     
     Entity(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, glm::vec3&& position,
-           glm::vec3&& rotation, float angle, float scale, glm::vec3&& color)
+           glm::vec3&& rotation, float angle, float scale, Color&& color)
     : model(model), shader(shader), position(std::move(position)), rotation(std::move(rotation)),
     angle(0.0f), scale(scale), color(std::move(color)) {
         execPosition();
@@ -117,9 +118,9 @@ public:
     inline float getAngle() const { return this->angle; }
     inline float getScale() const { return this->scale; }
     
-    inline void setColor(const glm::vec3& color) { this->color = color; }
-    inline void setColor(glm::vec3&& color) noexcept { this->color = std::move(color); }
-    inline glm::vec3 getColor() const { return this->color; }
+    inline void setColor(const Color& color) { this->color = color; }
+    inline void setColor(Color&& color) noexcept { this->color = std::move(color); }
+    inline Color getColor() const { return this->color; }
     
     inline glm::mat4 getTransformation() const { return this->transform; }
     

@@ -43,18 +43,18 @@ typedef unsigned long   ulong;
 typedef std::chrono::high_resolution_clock::time_point  time_point;
 
 // Basic Color definitions
-#define CL_BLACK            glm::vec3(0.0f,0.0f,0.0f)
-#define CL_WHITE            glm::vec3(1.0f,1.0f,1.0f)
-#define CL_GRAY             glm::vec3(0.3f,0.3f,0.3f)
-#define CL_RED              glm::vec3(1.0f,0.0f,0.0f)
-#define CL_GREEN            glm::vec3(0.0f,1.0f,0.0f)
-#define CL_BLUE             glm::vec3(0.0f,0.0f,1.0f)
-#define CL_YELLOW           glm::vec3(1.0f,1.0f,0.0f)
-#define CL_YELLOW_PALE      glm::vec3(1.0f,1.0f,0.8f)
-#define CL_ORANGE           glm::vec3(1.0f,0.4f,0.0f)
-#define CL_BROWN            glm::vec3(0.6f,0.3f,0.1f)
-#define CL_PURPLE           glm::vec3(0.5f,0.0f,1.0f)
-#define CL_AQUA             glm::vec3(0.0f,1.0f,1.0f)
-#define CL_PINK             glm::vec3(0.9f,0.0f,0.9f)
+#define CL_BLACK            Color(0.0f,0.0f,0.0f)
+#define CL_WHITE            Color(1.0f,1.0f,1.0f)
+#define CL_GRAY             Color(0.3f,0.3f,0.3f)
+#define CL_RED              Color(1.0f,0.0f,0.0f)
+#define CL_GREEN            Color(0.0f,1.0f,0.0f)
+#define CL_BLUE             Color(0.0f,0.0f,1.0f)
+#define CL_YELLOW           Color(1.0f,1.0f,0.0f)
+#define CL_YELLOW_PALE      Color(1.0f,1.0f,0.8f)
+#define CL_ORANGE           Color(1.0f,0.4f,0.0f)
+#define CL_BROWN            Color(0.6f,0.3f,0.1f)
+#define CL_PURPLE           Color(0.5f,0.0f,1.0f)
+#define CL_AQUA             Color(0.0f,1.0f,1.0f)
+#define CL_PINK             Color(0.9f,0.0f,0.9f)
 
 #endif

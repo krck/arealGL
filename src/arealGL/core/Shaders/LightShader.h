@@ -62,8 +62,8 @@ public:
         }
     }
     
-    void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const glm::vec3& color) const {
-        uniformVec3("u_objectColor", color);
+    void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const Color& color) const {
+        uniformVec3("u_objectColor", color.getRGB());
         uniformMat4("u_transform", transform);
         uniformMat4("u_projection", projection);
         uniformMat4("u_view", view);
@@ -77,10 +77,10 @@ public:
     void setLightUniforms() const override {
         for(int i = 0; i < MAX_LIGHTS; i++) {
             if(i < lights.size()) {
-                uniformVec3("u_lightPosition[" + std::to_string(i) + "]", lights[i].direction);
-                uniformVec3("u_lightColor[" + std::to_string(i) + "]", lights[i].color);
-                uniformFloat("u_intensity[" + std::to_string(i) + "]", lights[i].intensity);
-                uniformVec3("u_attenuation[" + std::to_string(i) + "]", lights[i].attenuation);
+                uniformVec3("u_lightPosition[" + std::to_string(i) + "]", lights[i].getDirection());
+                uniformVec3("u_lightColor[" + std::to_string(i) + "]", lights[i].getColor().getRGB());
+                uniformFloat("u_intensity[" + std::to_string(i) + "]", lights[i].getIntensity());
+                uniformVec3("u_attenuation[" + std::to_string(i) + "]", lights[i].getAttenuation());
             } else {
                 uniformVec3("u_lightPosition[" + std::to_string(i) + "]", glm::vec3(0.0f));
                 uniformVec3("u_lightColor[" + std::to_string(i) + "]", glm::vec3(0.0f));

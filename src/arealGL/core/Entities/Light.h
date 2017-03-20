@@ -32,26 +32,28 @@
 #ifndef Light_h
 #define Light_h
 
+#include "Color.h"
 #include <vec3.hpp>
 
 namespace arealGL {
 
 class Light {
-public:
+private:
     glm::vec3 direction;
-    glm::vec3 color;
+    Color color;
     glm::vec3 attenuation;      // Three values to define point-light-ness
     float intensity;
     
-    Light(const glm::vec3& direction, const glm::vec3& color, float intensity)
+public:
+    Light(const glm::vec3& direction, const Color& color, float intensity)
     : direction(direction), color(color), attenuation(glm::vec3(1.0f, 0.0f, 0.0f)), intensity(intensity) { }
     
-    Light(const glm::vec3& direction, const glm::vec3& color, const glm::vec3& attenuation, float intensity)
+    Light(const glm::vec3& direction, const Color& color, const glm::vec3& attenuation, float intensity)
     : direction(direction), color(color), attenuation(attenuation), intensity(intensity) { }
     
-    inline void setColor(const glm::vec3& color) { this->color = color; }
-    inline void setColor(glm::vec3&& color) noexcept { this->color = std::move(color); }
-    inline glm::vec3 getColor() const { return this->color; }
+    inline void setColor(const Color& color) { this->color = color; }
+    inline void setColor(Color&& color) noexcept { this->color = std::move(color); }
+    inline Color getColor() const { return this->color; }
     
     inline void setDirection(const glm::vec3& direction) { this->direction = direction; }
     inline void setDirection(glm::vec3&& direction) noexcept { this->direction = std::move(direction); }

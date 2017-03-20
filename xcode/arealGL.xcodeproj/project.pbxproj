@@ -64,6 +64,7 @@
 		D088EA601E7FF08700A08EDB /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		D088EA611E7FFAFC00A08EDB /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = ../LICENSE.txt; sourceTree = "<group>"; };
 		D088EA621E7FFAFC00A08EDB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		D088EA641E8010B200A08EDB /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +235,7 @@
 				D088EA5F1E7FF08700A08EDB /* Mesh.h */,
 				D088EA5E1E7FF08700A08EDB /* Light.h */,
 				D088EA5C1E7FF08700A08EDB /* Camera.h */,
+				D088EA641E8010B200A08EDB /* Color.h */,
 			);
 			path = Entities;
 			sourceTree = "<group>";

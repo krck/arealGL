@@ -39,6 +39,7 @@
 #include <OpenGL/glext.h>
 
 #define SHADER_BASEPATH         std::string("/Users/peter/Documents/github/C++/arealGL/resources/Shaders/")
+#define MODEL_BASEPATH          std::string("/Users/peter/Desktop/graphic_objects/")
 
 #define MAX_LIGHTS              4
 

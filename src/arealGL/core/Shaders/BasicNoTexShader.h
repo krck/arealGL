@@ -50,8 +50,8 @@ public:
         setUniform("u_objectColor");
     }
     
-    void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const glm::vec3& color) const {
-        uniformVec3("u_objectColor", color);
+    void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const Color& color) const {
+        uniformVec3("u_objectColor", color.getRGB());
         uniformMat4("u_transform", transform);
         uniformMat4("u_projection", projection);
         uniformMat4("u_view", view);
