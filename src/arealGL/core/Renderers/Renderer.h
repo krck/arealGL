@@ -39,6 +39,7 @@
 
 #include "Entity.h"
 #include "Camera.h"
+#include "FrameBuffer.h"
 #include <mat4x4.hpp>
 
 namespace arealGL {
@@ -48,6 +49,8 @@ public:
     virtual void submit(std::shared_ptr<Entity> entity) = 0;
     
     virtual void render(const Camera& cam, const glm::mat4& projection) = 0;
+    
+    virtual void renderFBOtoDefaultScreen(const Shader& shader, const RenderQuad& renderQuad, const FrameBuffer& fbo) = 0;
     
 };
 

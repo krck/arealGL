@@ -50,6 +50,14 @@ struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;
     glm::vec2 texcoords;
+    
+    Vertex() {}
+    Vertex(const Vertex& rhs) = default;
+    Vertex(Vertex&& rhs) noexcept = default;
+    Vertex(const glm::vec3& position, const glm::vec3& normal, const glm::vec2& texcoords)
+    : position(position), normal(normal), texcoords(texcoords) { }
+    Vertex(glm::vec3&& position, glm::vec3&& normal, glm::vec2&& texcoords) noexcept
+    : position(std::move(position)), normal(std::move(normal)), texcoords(std::move(texcoords)) { }
 };
 
 // Doubles as Material struct
@@ -63,6 +71,39 @@ struct Texture {
     float diffuseReflectivity;
     float shineDamper = 10.0f;
 };
+    
+    
+class RenderQuad {
+private:
+    const std::vector<float> quadVertices {
+        // Positions   // TexCoords
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        -1.0f, -1.0f,  0.0f, 0.0f,
+        1.0f, -1.0f,  1.0f, 0.0f,
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        1.0f, -1.0f,  1.0f, 0.0f,
+        1.0f,  1.0f,  1.0f, 1.0f
+    };
+    
+    uint quadVAO, quadVBO;
+    
+public:
+    RenderQuad() {
+        glGenVertexArrays(1, &quadVAO);
+        glGenBuffers(1, &quadVBO);
+        glBindVertexArray(quadVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+        glBufferData(GL_ARRAY_BUFFER, (sizeof(float) * quadVertices.size()), &quadVertices[0], GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
+        glBindVertexArray(0);
+    }
+    
+    inline uint getVAO() const { return this->quadVAO; }
+};
+    
 
 class Mesh {
 public:

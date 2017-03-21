@@ -86,7 +86,7 @@ public:
     inline void bind() const { glUseProgram(programID); }
     inline void unbind() const { glUseProgram(0); }
     
-    virtual void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const Color& color) const = 0;
+    virtual void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const Color& color) const { }
     virtual void setMaterialUniforms(float spectralReflectivity, float shineDamper) const { }
     virtual void setLightUniforms() const { }
     

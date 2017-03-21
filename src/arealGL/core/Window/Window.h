@@ -44,6 +44,7 @@ class Window {
     
 private:
     int _width, _height, _fieldOfView = 45;
+    int _actualWidth, _actualHeight;
     GLFWwindow* _window;
     std::unique_ptr<IOEvents> _io = nullptr;
     
@@ -80,8 +81,6 @@ public:
         glfwSetCursorEnterCallback(_window, _io->mouse_inwindow_callback);
         // Disable cursor for unlimited mouse movement with the camera
         glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        // set the default clear color to white
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     }
     
     inline void set_size(int width, int height) { _width = width; _height = height; glfwSetWindowSize(_window, width, height); }
@@ -96,12 +95,24 @@ public:
     inline const KeyboardClient& keyboardClient() const { return this->_io->get_keyboard(); }
     inline const MouseClient& mouseClient() const { return this->_io->get_mouse(); }
     
-    inline void clear() const { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); }
+    inline void clear() const {
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    }
     
     void update() {
         glfwPollEvents();
-        glfwSwapBuffers(_window);
         _io->mouse_motion(_window);
+        glfwSwapBuffers(_window);
+    }
+    
+    void setAsRenderTarget() {
+        // Set the default FrameBuffer
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        glfwGetFramebufferSize(_window, &_actualWidth, &_actualHeight);
+        glViewport(0, 0, _actualWidth, _actualHeight);
     }
 
     ~Window() { glfwDestroyWindow(_window); glfwTerminate(); }

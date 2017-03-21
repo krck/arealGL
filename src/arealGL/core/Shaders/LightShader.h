@@ -62,7 +62,7 @@ public:
         }
     }
     
-    void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const Color& color) const {
+    void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const Color& color) const override {
         uniformVec3("u_objectColor", color.getRGB());
         uniformMat4("u_transform", transform);
         uniformMat4("u_projection", projection);

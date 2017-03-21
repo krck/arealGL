@@ -43,6 +43,7 @@ int main() {
     const KeyboardClient& keyboard = window.keyboardClient();
     Loader loader = Loader();
     BatchRenderer batchRender = BatchRenderer();
+    FrameBuffer fbo = FrameBuffer(window.width(), window.height());
     Camera camera;
     Timer timer;
     
@@ -58,6 +59,7 @@ int main() {
     std::shared_ptr<Shader> basicShader = std::make_shared<BasicShader>();
     std::shared_ptr<Shader> basicNoTexShader = std::make_shared<BasicNoTexShader>();
     std::shared_ptr<Shader> lightShader = std::make_shared<LightShader>(lights);
+    std::shared_ptr<Shader> fboShader = std::make_shared<FboShader>();
     
     // Load Models
     std::shared_ptr<Model> sunModel = loader.LoadSimpleModelFromFile(MODEL_BASEPATH + "shpere.obj");
@@ -65,6 +67,8 @@ int main() {
     std::shared_ptr<Model> boxModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube/cube.obj");
     std::shared_ptr<Model> floorModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube3/cube.obj");
     std::shared_ptr<Model> lampModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube2/cube2.obj");
+    // Simple quad model to render FBO texture on
+    RenderQuad renderQuad;
     
     // Create Entities (and set the translations)
     std::shared_ptr<Entity> sun = std::make_shared<Entity>(sunModel, basicNoTexShader, glm::vec3(0.0f, 10.0f, -10.0f), CL_YELLOW_PALE);
@@ -77,7 +81,7 @@ int main() {
     // MAIN LOOP
     while (!window.closed()) {
         timer.limitFPSstart();
-        window.clear();
+        // window.clear();
         
         if(keyboard.KeyIsPressed(GLFW_KEY_A)) { camera.changePosition(MoveDirection::LEFT, 0.02f); }
         if(keyboard.KeyIsPressed(GLFW_KEY_D)) { camera.changePosition(MoveDirection::RIGHT, 0.02f); }
@@ -95,7 +99,12 @@ int main() {
         batchRender.submit(leftLamp);
         batchRender.submit(rightLamp);
         
+        // Render scene to the FrameBuffer
+        fbo.setAsRenderTarget();
         batchRender.render(camera, projection);
+        // Render FrameBuffer Texture (Colorbuffer) on the actual Window
+        window.setAsRenderTarget();
+        batchRender.renderFBOtoDefaultScreen(*fboShader, renderQuad, fbo);
         
         const GLenum e (glGetError());
         if(e != GL_NO_ERROR) { std::cout <<" OpenGL ERROR: " <<e <<std::endl; }

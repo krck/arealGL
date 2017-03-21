@@ -1,4 +1,4 @@
-// BatchRenderer.h
+// FboShader.h
 /*************************************************************************************
  *  arealGL (OpenGL graphics library)                                                *
  *-----------------------------------------------------------------------------------*
@@ -29,72 +29,22 @@
  *                                                                                   *
  *************************************************************************************/
 
-#ifndef BatchRenderer_h
-#define BatchRenderer_h
+#ifndef FboShader_h
+#define FboShader_h
 
-#include "Renderer.h"
-
-// --------------------------------------
-// ----- BATCHED BY SHADERS FOR NOW -----
-// --------------------------------------
+#include "Shader.h"
 
 namespace arealGL {
-
-class BatchRenderer : public Renderer {
-private:
-    std::map<std::shared_ptr<Shader>, std::vector<std::shared_ptr<Entity>>> renderables;
     
-public:
-    void submit(std::shared_ptr<Entity> entity) {
-        if(renderables.count(entity->shader) == 0) {
-            std::vector<std::shared_ptr<Entity>> tmp { entity };
-            renderables.insert(std::make_pair(entity->shader, tmp));
-        } else {
-            renderables[entity->shader].push_back(entity);
+    class FboShader : public Shader {
+    public:
+        FboShader() : Shader(SHADER_BASEPATH + "fboShader.vert", SHADER_BASEPATH + "fboShader.frag", true) {
+            // Set the Attributes
+            setAttribute(0, "position");
+            setAttribute(1, "texCoords");
         }
-    }
-    
-    void render(const Camera& cam, const glm::mat4& projection) {
-        for(const auto& renderpair : this->renderables) {
-            auto shader = renderpair.first;
-            shader->bind();
-            for(auto entity : renderpair.second) {
-                shader->setLightUniforms();
-                shader->setModelUniforms(entity->getTransformation(), cam.getView(), projection, entity->getColor());
-                for(const Mesh& mesh : entity->model->meshes) {
-                    // Activate and bind all the textures
-                    for(auto i = 0; i < mesh.textures.size(); i++) {
-                        glActiveTexture(GL_TEXTURE0 + i);
-                        glBindTexture(GL_TEXTURE_2D, mesh.textures[i].texID);
-                        shader->setMaterialUniforms(mesh.textures[i].spectralReflectivity, mesh.textures[i].shineDamper);
-                    }
-                    // Get the show on the road
-                    glBindVertexArray(mesh.getVAO());
-                    glDrawElements(GL_TRIANGLES, (int)mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
-                    glBindVertexArray(0);
-                    // Set everything back to defaults
-                    for (auto i = 0; i < mesh.textures.size(); i++){
-                        glActiveTexture(GL_TEXTURE0 + i);
-                        glBindTexture(GL_TEXTURE_2D, 0);
-                    }
-                }
-            }
-            shader->unbind();
-        }
-        renderables.clear();
-    }
-    
-    
-    void renderFBOtoDefaultScreen(const Shader& shader, const RenderQuad& renderQuad, const FrameBuffer& fbo) {
-        shader.bind();
-        glBindVertexArray(renderQuad.getVAO());
-        glBindTexture(GL_TEXTURE_2D, fbo.getTextureColorbuffer());
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        glBindVertexArray(0);
-        shader.unbind();
-    }
-    
-};
+        
+    };
     
 }
 

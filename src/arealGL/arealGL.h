@@ -49,5 +49,7 @@
 #include "LightShader.h"
 #include "LightNoTexShader.h"
 #include "BasicNoTexShader.h"
+#include "FboShader.h"
+#include "FrameBuffer.h"
 
 #endif

@@ -65,6 +65,10 @@
 		D088EA611E7FFAFC00A08EDB /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = ../LICENSE.txt; sourceTree = "<group>"; };
 		D088EA621E7FFAFC00A08EDB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		D088EA641E8010B200A08EDB /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		D0A045551E81719C00BBD747 /* FrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameBuffer.h; sourceTree = "<group>"; };
+		D0A045561E81727200BBD747 /* FboShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FboShader.h; sourceTree = "<group>"; };
+		D0A045571E8172CC00BBD747 /* fboShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fboShader.frag; sourceTree = "<group>"; };
+		D0A045581E8172CC00BBD747 /* fboShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fboShader.vert; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				D088EA491E7FEEC800A08EDB /* Shader.h */,
+				D0A045561E81727200BBD747 /* FboShader.h */,
 				D088EA461E7FEEC800A08EDB /* BasicShader.h */,
 				D088EA481E7FEEC800A08EDB /* LightShader.h */,
 				D088EA451E7FEEC800A08EDB /* BasicNoTexShader.h */,
@@ -187,14 +192,16 @@
 		D088EA381E7FEEA800A08EDB /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				D088EA391E7FEEA800A08EDB /* basicNoTexShader.frag */,
-				D088EA3A1E7FEEA800A08EDB /* basicNoTexShader.vert */,
-				D088EA3B1E7FEEA800A08EDB /* basicShader.frag */,
-				D088EA3C1E7FEEA800A08EDB /* basicShader.vert */,
-				D088EA3D1E7FEEA800A08EDB /* lightNoTexShader.frag */,
-				D088EA3E1E7FEEA800A08EDB /* lightNoTexShader.vert */,
-				D088EA3F1E7FEEA800A08EDB /* lightShader.frag */,
+				D0A045581E8172CC00BBD747 /* fboShader.vert */,
+				D0A045571E8172CC00BBD747 /* fboShader.frag */,
 				D088EA401E7FEEA800A08EDB /* lightShader.vert */,
+				D088EA3F1E7FEEA800A08EDB /* lightShader.frag */,
+				D088EA3C1E7FEEA800A08EDB /* basicShader.vert */,
+				D088EA3B1E7FEEA800A08EDB /* basicShader.frag */,
+				D088EA3E1E7FEEA800A08EDB /* lightNoTexShader.vert */,
+				D088EA3D1E7FEEA800A08EDB /* lightNoTexShader.frag */,
+				D088EA3A1E7FEEA800A08EDB /* basicNoTexShader.vert */,
+				D088EA391E7FEEA800A08EDB /* basicNoTexShader.frag */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -236,6 +243,7 @@
 				D088EA5E1E7FF08700A08EDB /* Light.h */,
 				D088EA5C1E7FF08700A08EDB /* Camera.h */,
 				D088EA641E8010B200A08EDB /* Color.h */,
+				D0A045551E81719C00BBD747 /* FrameBuffer.h */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
