@@ -112,8 +112,6 @@ int main() {
         const GLenum e (glGetError());
         if(e != GL_NO_ERROR) { std::cout <<" OpenGL ERROR: " <<e <<std::endl; }
         
-
-        
         window.update();
         timer.calculateFPS();
         timer.limitFPSend();
