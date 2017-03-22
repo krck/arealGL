@@ -36,15 +36,15 @@
 
 namespace arealGL {
     
-    class FboShader : public Shader {
-    public:
-        FboShader() : Shader(SHADER_BASEPATH + "fboShader.vert", SHADER_BASEPATH + "fboShader.frag", true) {
-            // Set the Attributes
-            setAttribute(0, "position");
-            setAttribute(1, "texCoords");
-        }
-        
-    };
+class FboShader : public Shader {
+public:
+    FboShader() : Shader(SHADER_BASEPATH + "fboShader.vert", SHADER_BASEPATH + "fboShader.frag", true) {
+        // Set the Attributes
+        setAttribute(0, "position");
+        setAttribute(1, "texCoords");
+    }
+    
+};
     
 }
 

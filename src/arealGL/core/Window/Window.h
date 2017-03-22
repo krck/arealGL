@@ -81,6 +81,8 @@ public:
         glfwSetCursorEnterCallback(_window, _io->mouse_inwindow_callback);
         // Disable cursor for unlimited mouse movement with the camera
         glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        // Get the actual window size values in pixels
+        glfwGetFramebufferSize(_window, &_actualWidth, &_actualHeight);
     }
     
     inline void set_size(int width, int height) { _width = width; _height = height; glfwSetWindowSize(_window, width, height); }
@@ -89,6 +91,8 @@ public:
     
     inline float width() const { return (float)this->_width; }
     inline float height() const { return (float)this->_height; }
+    inline float actualWidth() const { return (float)this->_actualWidth; }
+    inline float actualHeight() const { return (float)this->_actualHeight; }
     inline float fieldOfView() const { return (float)this->_fieldOfView; }
     inline bool closed() const { return glfwWindowShouldClose(_window); }
     

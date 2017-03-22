@@ -43,7 +43,8 @@ int main() {
     const KeyboardClient& keyboard = window.keyboardClient();
     Loader loader = Loader();
     BatchRenderer batchRender = BatchRenderer();
-    FrameBuffer fbo = FrameBuffer(window.width(), window.height());
+    FrameBuffer fboMSAA = FrameBuffer(window.width(), window.height(), true);
+    FrameBuffer fboIntermediate = FrameBuffer(window.width(), window.height(), false);
     Camera camera;
     Timer timer;
     
@@ -99,15 +100,19 @@ int main() {
         batchRender.submit(leftLamp);
         batchRender.submit(rightLamp);
         
-        // Render scene to the FrameBuffer
-        fbo.setAsRenderTarget();
+        // Render scene to the multisampled FrameBuffer
+        fboMSAA.setAsRenderTarget();
         batchRender.render(camera, projection);
-        // Render FrameBuffer Texture (Colorbuffer) on the actual Window
+        // Combine multisampled scene into another FrameBuffer
+        fboMSAA.resolveToFBO(fboIntermediate);
+        // And render that to the actual Window
         window.setAsRenderTarget();
-        batchRender.renderFBOtoDefaultScreen(*fboShader, renderQuad, fbo);
+        batchRender.renderFBOtoDefaultScreen(*fboShader, renderQuad, fboIntermediate);
         
         const GLenum e (glGetError());
         if(e != GL_NO_ERROR) { std::cout <<" OpenGL ERROR: " <<e <<std::endl; }
+        
+
         
         window.update();
         timer.calculateFPS();

@@ -49,6 +49,8 @@
 #define MIP_MAPPING             true
 #define ANISOTROPIC_FILTERING   true
 
+#define MSAA                    8       // 0 - 2 - 4 - 8
+
 #define FRAME_SAMPLES           10
 #define FPS_MAX                 100.0f
 

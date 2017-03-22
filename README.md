@@ -31,7 +31,7 @@ TODO (Basics)
 - [ ] Particle Effects
 - [ ] Instancing / Buffer combinig
 - [ ] Shadows
-- [ ] FBOs and AA
+- [x] FBOs and AA
 - [ ] Ray picking
 - [ ] Debug own maths classes
 
