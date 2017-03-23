@@ -57,7 +57,7 @@ namespace arealGL {
 
 class Loader {
 private:
-    std::vector<Texture> textures_loaded;
+    std::map<std::string, uint> texturesLoaded;
     
 public:
     // Load simple, untextured mesh from an .obj File
@@ -67,7 +67,7 @@ public:
         std::vector<uint> tmpIndices;
         // Parse the .obj file data
         Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs  | aiProcess_CalcTangentSpace);
         if(scene != nullptr) {
             // Get the first mesh
             const aiMesh* mesh = scene->mMeshes[0];
@@ -80,7 +80,7 @@ public:
                 tmpvec.normal.x = mesh->mNormals[i].x;
                 tmpvec.normal.y = mesh->mNormals[i].y;
                 tmpvec.normal.z = mesh->mNormals[i].z;
-                // default values as texture coords
+                // default values as texture coords and no tangents needed
                 tmpvec.texcoords = glm::vec2(0.0f);
                 tmpVertices.push_back(tmpvec);
             }
@@ -92,7 +92,7 @@ public:
                 }
             }
         }
-        meshes.push_back(Mesh(tmpVertices, tmpIndices, std::vector<Texture>(), (path.substr(0, path.rfind('/')))));
+        meshes.push_back(Mesh(tmpVertices, tmpIndices, Texture(0, ""), (path.substr(0, path.rfind('/')))));
         return std::make_shared<Model>(meshes);
     }
     
@@ -100,7 +100,7 @@ public:
     // Load complex Model: multiple Files, multiple Textures and Materials
     std::shared_ptr<Model> LoadComplexModelFromFile(const std::string& path) {
         Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
             std::cout <<"ERROR::ASSIMP:: " <<importer.GetErrorString() <<std::endl;
             return nullptr;
@@ -130,8 +130,7 @@ private:
     Mesh processMesh(aiMesh *mesh, const aiScene *scene, const std::string& dir) {
         std::vector<Vertex> tmpVertices;
         std::vector<uint> tmpIndices;
-        std::vector<Texture> tmpTextures;
-        
+        Texture tmpTexture = Texture(0, "");
         // Get all of the mesh's vertices
         for (uint i = 0; i < mesh->mNumVertices; i++) {
             Vertex tmpvec;
@@ -141,6 +140,9 @@ private:
             tmpvec.normal.x = mesh->mNormals[i].x;
             tmpvec.normal.y = mesh->mNormals[i].y;
             tmpvec.normal.z = mesh->mNormals[i].z;
+            tmpvec.tangent.x = mesh->mTangents[i].x;
+            tmpvec.tangent.y = mesh->mTangents[i].y;
+            tmpvec.tangent.z = mesh->mTangents[i].z;
             if(mesh->mTextureCoords[0]) {
                 tmpvec.texcoords.x = mesh->mTextureCoords[0][i].x;
                 tmpvec.texcoords.y = mesh->mTextureCoords[0][i].y;
@@ -156,68 +158,52 @@ private:
                 tmpIndices.push_back(face.mIndices[j]);
             }
         }
-        // Process materials
+        // Process materials and textures
         if(mesh->mMaterialIndex >= 0) {
             aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-            // We assume a convention for sampler names in the shaders.
-            // Diffuse: texture_diffuseN
-            // Specular: texture_specularN
-            // Normal: texture_normalN
-            // 1. Diffuse maps
-            std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", dir);
-            tmpTextures.insert(tmpTextures.end(), diffuseMaps.begin(), diffuseMaps.end());
-            // 2. Specular maps
-            std::vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular", dir);
-            tmpTextures.insert(tmpTextures.end(), specularMaps.begin(), specularMaps.end());
+            // Get the texture data
+            uint textureDiffuse = loadOrGetTexture(material, dir, aiTextureType_DIFFUSE);
+            uint textureSpecular = loadOrGetTexture(material, dir, aiTextureType_SPECULAR);
+            uint textureNormal = loadOrGetTexture(material, dir, aiTextureType_HEIGHT);
+            // Get the material reflection values (but store them as a single float)
+            Material tmpMat;
+            aiColor3D color (0.f,0.f,0.f);
+            material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+            tmpMat.diffuseReflectivity = (color.r + color.g + color.b) / 3.0f;
+            material->Get(AI_MATKEY_COLOR_SPECULAR, color);
+            tmpMat.spectralReflectivity = (color.r + color.g + color.b) / 3.0f;
+            material->Get(AI_MATKEY_COLOR_AMBIENT, color);
+            tmpMat.ambientReflectivity = (color.r + color.g + color.b) / 3.0f;
+            // Create the full Texture object
+            tmpTexture = Texture(textureDiffuse, textureNormal, textureSpecular, tmpMat, dir);
         }
-        
         // Return a mesh object created from the extracted mesh data
-        return Mesh(tmpVertices, tmpIndices, tmpTextures, dir);
+        return Mesh(tmpVertices, tmpIndices, tmpTexture, dir);
     }
     
-    // Process material textures of a given type and loads the textures if they're not loaded yet.
-    std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, const std::string& dir) {
-        std::vector<Texture> tmpTextures;
-        
-        for (uint i = 0; i < mat->GetTextureCount(type); i++) {
-            aiString str;
-            mat->GetTexture(type, i, &str);
-            
-            bool skip = false;
-            
-            for (GLuint j = 0; j < textures_loaded.size(); j++) {
-                if(textures_loaded[j].path == str) {
-                    tmpTextures.push_back(textures_loaded[j]);
-                    skip = true;
-                    break;
-                }
+    
+    uint loadOrGetTexture(aiMaterial* material, const std::string& dir, aiTextureType type) {
+        aiString str;
+        uint tmpTex = 0;
+        material->GetTexture(type, 0, &str);
+        if(str.length) {
+            const std::string tmpPath = dir + "/" + str.C_Str();
+            // Check if The texture was already loaded and get it, else load it
+            if(texturesLoaded.find(tmpPath) != texturesLoaded.end()) {
+                tmpTex = texturesLoaded[tmpPath];
+            } else {
+                tmpTex = LoadTextureFromFile(tmpPath);
+                texturesLoaded.insert(std::make_pair(tmpPath, tmpTex));
             }
-            // If texture hasn't been loaded already, load it
-            if(!skip) {
-                Texture tmpTex;
-                tmpTex.texID = LoadTextureFromFile(str.C_Str(), dir);
-                tmpTex.type = typeName;
-                tmpTex.path = str;
-                // Get the material reflection values (but store them as a single float)
-                aiColor3D color (0.f,0.f,0.f);
-                mat->Get(AI_MATKEY_COLOR_DIFFUSE,color);
-                tmpTex.diffuseReflectivity = (color.r + color.g + color.b) / 3.0f;
-                mat->Get(AI_MATKEY_COLOR_SPECULAR,color);
-                tmpTex.spectralReflectivity = (color.r + color.g + color.b) / 3.0f;
-                mat->Get(AI_MATKEY_COLOR_AMBIENT,color);
-                tmpTex.ambientReflectivity = (color.r + color.g + color.b) / 3.0f;
-                // Store it to ensure we won't unnecesery load duplicate textures
-                tmpTextures.push_back(tmpTex);
-                this->textures_loaded.push_back(tmpTex);
-            }
+            return tmpTex;
+        } else {
+            return 0;
         }
-        return tmpTextures;
     }
     
-    
-    uint LoadTextureFromFile(const char* name, const std::string& directory) const {
+
+    uint LoadTextureFromFile(const std::string& filename) const {
         //Generate texture ID and load texture data
-        const std::string filename = directory + '/' + std::string(name);
         uint textureID = 0;
         glGenTextures(1, &textureID);
         // get the texture data with the stb image lib

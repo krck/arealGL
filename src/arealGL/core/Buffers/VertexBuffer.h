@@ -1,4 +1,4 @@
-// Renderer.h
+//  VertexBuffer.h
 /*************************************************************************************
  *  arealGL (OpenGL graphics library)                                                *
  *-----------------------------------------------------------------------------------*
@@ -29,32 +29,43 @@
  *                                                                                   *
  *************************************************************************************/
 
-#ifndef Renderer_h
-#define Renderer_h
+#ifndef VertexBuffer_h
+#define VertexBuffer_h
 
-#include <map>
-#include <vector>
-#include <queue>
-#include <memory>
+// ---------------------------------------------------------
+// ---------- Legacy Buffers / Currently not used ----------
+// ---------------------------------------------------------
 
-#include "Entity.h"
-#include "RenderQuad.h"
-#include "Camera.h"
-#include "FrameBuffer.h"
-#include <mat4x4.hpp>
+#include "Buffer.h"
 
 namespace arealGL {
 
-class Renderer {
+class VertexBuffer : public Buffer {
 public:
-    virtual void submit(std::shared_ptr<Entity> entity) = 0;
+    VertexBuffer() { glGenBuffers(1, this->buffer.get()); }
+    inline ~VertexBuffer() { glDeleteBuffers(1, this->buffer.get()); }
     
-    virtual void render(const Camera& cam, const glm::mat4& projection) = 0;
+    inline void bind() const override { glBindBuffer(GL_ARRAY_BUFFER, *this->buffer); }
+    inline void unbind() const override { glBindBuffer(GL_ARRAY_BUFFER, 0); }
     
-    virtual void renderFBOtoDefaultScreen(const Shader& shader, const RenderQuad& renderQuad, const FrameBuffer& fbo) = 0;
+    void addData(const float* data, long size) {
+        this->size = size;
+        this->bind();
+        glBufferData(GL_ARRAY_BUFFER, (sizeof(float) * this->size), data, GL_STATIC_DRAW);
+        this->unbind();
+        return;
+    }
+    // overload, to draw with "GL_DYNAMIC_DRAW", etc...
+    void addData(const float* data, long size, const GLenum& type) {
+        this->size = size;
+        this->bind();
+        glBufferData(GL_ARRAY_BUFFER, (sizeof(float) * this->size), data, type);
+        this->unbind();
+        return;
+    }
     
 };
-
+    
 }
 
 #endif

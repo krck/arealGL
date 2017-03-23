@@ -1,4 +1,4 @@
-// Renderer.h
+// Buffer.h
 /*************************************************************************************
  *  arealGL (OpenGL graphics library)                                                *
  *-----------------------------------------------------------------------------------*
@@ -29,32 +29,32 @@
  *                                                                                   *
  *************************************************************************************/
 
-#ifndef Renderer_h
-#define Renderer_h
+#ifndef Buffer_h
+#define Buffer_h
 
-#include <map>
-#include <vector>
-#include <queue>
+// ---------------------------------------------------------
+// ---------- Legacy Buffers / Currently not used ----------
+// ---------------------------------------------------------
+
 #include <memory>
-
-#include "Entity.h"
-#include "RenderQuad.h"
-#include "Camera.h"
-#include "FrameBuffer.h"
-#include <mat4x4.hpp>
+#include "Types.h"
 
 namespace arealGL {
 
-class Renderer {
+class Buffer {
 public:
-    virtual void submit(std::shared_ptr<Entity> entity) = 0;
+    std::unique_ptr<uint> buffer;           // buffer data
+    long size;                              // data size
     
-    virtual void render(const Camera& cam, const glm::mat4& projection) = 0;
+public:
+    Buffer () : buffer(std::make_unique<uint>(0)) { }
+    virtual inline ~Buffer () = default;
     
-    virtual void renderFBOtoDefaultScreen(const Shader& shader, const RenderQuad& renderQuad, const FrameBuffer& fbo) = 0;
+    virtual inline void bind () const = 0;
+    virtual inline void unbind () const = 0;
     
 };
-
+    
 }
 
 #endif

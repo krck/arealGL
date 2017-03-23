@@ -1,4 +1,4 @@
-// Renderer.h
+//  VertexArrayObject.h
 /*************************************************************************************
  *  arealGL (OpenGL graphics library)                                                *
  *-----------------------------------------------------------------------------------*
@@ -29,32 +29,37 @@
  *                                                                                   *
  *************************************************************************************/
 
-#ifndef Renderer_h
-#define Renderer_h
+#ifndef VertexArrayObject_h
+#define VertexArrayObject_h
 
-#include <map>
-#include <vector>
-#include <queue>
-#include <memory>
+// ---------------------------------------------------------
+// ---------- Legacy Buffers / Currently not used ----------
+// ---------------------------------------------------------
 
-#include "Entity.h"
-#include "RenderQuad.h"
-#include "Camera.h"
-#include "FrameBuffer.h"
-#include <mat4x4.hpp>
+#include "Buffer.h"
 
 namespace arealGL {
 
-class Renderer {
+class VertexArrayObject : public Buffer {
 public:
-    virtual void submit(std::shared_ptr<Entity> entity) = 0;
+    VertexArrayObject() { glGenVertexArrays(1, this->buffer.get()); }
+    inline ~VertexArrayObject() { glDeleteVertexArrays(1, this->buffer.get()); }
     
-    virtual void render(const Camera& cam, const glm::mat4& projection) = 0;
+    inline void bind() const override { glBindVertexArray(*this->buffer); }
+    inline void unbind() const override { glBindVertexArray(0); }
     
-    virtual void renderFBOtoDefaultScreen(const Shader& shader, const RenderQuad& renderQuad, const FrameBuffer& fbo) = 0;
-    
-};
+    void addData (const Buffer* buffer, uint index) {
+        this->bind();
+        buffer->bind();
+        glEnableVertexAttribArray(index);
+        glVertexAttribPointer(index, 4, GL_FLOAT, GL_FALSE, 0, 0);
+        buffer->unbind();
+        this->unbind();
+        return;
+    }
 
+};
+    
 }
 
 #endif

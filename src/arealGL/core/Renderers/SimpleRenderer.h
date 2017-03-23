@@ -54,20 +54,14 @@ public:
             // render each mesh of the model
             for(const Mesh& mesh : entity->model->meshes) {
                 // Activate and bind all the textures
-                for(auto i = 0; i < mesh.textures.size(); i++) {
-                    glActiveTexture(GL_TEXTURE0 + i);
-                    glBindTexture(GL_TEXTURE_2D, mesh.textures[i].texID);
-                    entity->shader->setMaterialUniforms(mesh.textures[i].spectralReflectivity, mesh.textures[i].shineDamper);
-                }
+                mesh.texture.bindTexture();
+                entity->shader->setMaterialUniforms(mesh.texture.getMaterial().spectralReflectivity, mesh.texture.getMaterial().shineDamper);
                 // Get the show on the road
                 glBindVertexArray(mesh.getVAO());
                 glDrawElements(GL_TRIANGLES, (int)mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
                 glBindVertexArray(0);
                 // Set everything back to defaults
-                for (auto i = 0; i < mesh.textures.size(); i++){
-                    glActiveTexture(GL_TEXTURE0 + i);
-                    glBindTexture(GL_TEXTURE_2D, 0);
-                }
+                mesh.texture.unbindTexture();
             }
             entity->shader->unbind();
             renderables.pop();

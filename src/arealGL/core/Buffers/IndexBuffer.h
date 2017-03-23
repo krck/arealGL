@@ -1,4 +1,4 @@
-// Renderer.h
+//  IndexBuffer.h
 /*************************************************************************************
  *  arealGL (OpenGL graphics library)                                                *
  *-----------------------------------------------------------------------------------*
@@ -29,29 +29,32 @@
  *                                                                                   *
  *************************************************************************************/
 
-#ifndef Renderer_h
-#define Renderer_h
+#ifndef IndexBuffer_h
+#define IndexBuffer_h
 
-#include <map>
-#include <vector>
-#include <queue>
-#include <memory>
+// ---------------------------------------------------------
+// ---------- Legacy Buffers / Currently not used ----------
+// ---------------------------------------------------------
 
-#include "Entity.h"
-#include "RenderQuad.h"
-#include "Camera.h"
-#include "FrameBuffer.h"
-#include <mat4x4.hpp>
+#include "Buffer.h"
 
 namespace arealGL {
 
-class Renderer {
+class IndexBuffer : public Buffer {
 public:
-    virtual void submit(std::shared_ptr<Entity> entity) = 0;
+    IndexBuffer() { glGenBuffers(1, this->buffer.get()); }
+    inline ~IndexBuffer() { glDeleteBuffers(1, this->buffer.get()); }
     
-    virtual void render(const Camera& cam, const glm::mat4& projection) = 0;
+    inline void bind() const override { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *this->buffer); }
+    inline void unbind() const override { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
     
-    virtual void renderFBOtoDefaultScreen(const Shader& shader, const RenderQuad& renderQuad, const FrameBuffer& fbo) = 0;
+    void addData(const ushort* data, long size) {
+        this->size = size;
+        this->bind();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(ushort) * this->size), data, GL_STATIC_DRAW);
+        this->unbind();
+        return;
+    }
     
 };
 

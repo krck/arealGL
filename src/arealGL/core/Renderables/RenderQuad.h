@@ -1,4 +1,4 @@
-// Mesh.h
+//  RenderQuad.h
 /*************************************************************************************
  *  arealGL (OpenGL graphics library)                                                *
  *-----------------------------------------------------------------------------------*
@@ -29,49 +29,14 @@
  *                                                                                   *
  *************************************************************************************/
 
-#ifndef Mesh_h
-#define Mesh_h
+#ifndef RenderQuad_h
+#define RenderQuad_h
 
-#include <string>
-#include <sstream>
-#include <vector>
-
-#include "Types.h"
-#include "Config.h"
-#include "Camera.h"
-
-#include <vec2.hpp>
-#include <vec3.hpp>
-#include "Importer.hpp"
+// ---------------------------------------------------------
+// CAN BE REPLACED, AS SOON AS 2D RENDER OBJECTS ARE A THING
+// ---------------------------------------------------------
 
 namespace arealGL {
-
-struct Vertex {
-    glm::vec3 position;
-    glm::vec3 normal;
-    glm::vec2 texcoords;
-    
-    Vertex() {}
-    Vertex(const Vertex& rhs) = default;
-    Vertex(Vertex&& rhs) noexcept = default;
-    Vertex(const glm::vec3& position, const glm::vec3& normal, const glm::vec2& texcoords)
-    : position(position), normal(normal), texcoords(texcoords) { }
-    Vertex(glm::vec3&& position, glm::vec3&& normal, glm::vec2&& texcoords) noexcept
-    : position(std::move(position)), normal(std::move(normal)), texcoords(std::move(texcoords)) { }
-};
-
-// Doubles as Material struct
-struct Texture {
-    uint texID;
-    std::string type;
-    aiString path;
-    // Material values
-    float ambientReflectivity;
-    float spectralReflectivity;
-    float diffuseReflectivity;
-    float shineDamper = 10.0f;
-};
-    
     
 class RenderQuad {
 private:
@@ -102,44 +67,6 @@ public:
     }
     
     inline uint getVAO() const { return this->quadVAO; }
-};
-    
-
-class Mesh {
-public:
-    const std::vector<Vertex> vertices;
-    const std::vector<uint> indices;
-    const std::vector<Texture> textures;
-    const std::string directory;
-private:
-    uint VAO = 0, VBO = 0, EBO = 0;
-    
-public:
-    Mesh(const std::vector<Vertex>& vertices, const std::vector<uint>& indices,
-         const std::vector<Texture>& textures, const std::string& directory)
-    : vertices(vertices), indices(indices), textures(textures), directory(directory) {
-        // Create the buffers
-        glGenVertexArrays(1, &VAO);
-        glGenBuffers(1, &VBO);
-        glGenBuffers(1, &EBO);
-        glBindVertexArray(VAO);
-        // Load data into vertex buffers
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, (sizeof(Vertex) * vertices.size()), &vertices[0], GL_STATIC_DRAW);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, (sizeof(uint) * indices.size()), &indices[0], GL_STATIC_DRAW);
-        // Set the vertex attribute pointers
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)0);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)offsetof(Vertex, normal));
-        glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)offsetof(Vertex, texcoords));
-        glBindVertexArray(0);
-    }
-    
-    inline uint getVAO() const { return this->VAO; }
-    
 };
     
 }
