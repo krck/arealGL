@@ -46,7 +46,11 @@ public:
         // Set the Attributes
         setAttribute(0, "position");
         setAttribute(1, "normal");
-        setAttribute(2, "texCoords");
+        setAttribute(2, "tangent");
+        setAttribute(3, "texCoords");
+        // Textures
+        setUniform("texture_diffuse");
+        setUniform("normal_MAP");
         // Set the Uniforms
         setUniform("u_transform");
         setUniform("u_projection");
@@ -72,6 +76,9 @@ public:
     void setMaterialUniforms(float spectralReflectivity, float shineDamper) const override {
         uniformFloat("u_spectralReflectivity", spectralReflectivity);
         uniformFloat("u_shineDamper", shineDamper);
+        // Also set the Texture samplers
+        uniformInt("texture_diffuse", 0);
+        uniformInt("normal_MAP", 1);
     }
     
     void setLightUniforms() const override {

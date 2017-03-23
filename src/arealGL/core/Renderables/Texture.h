@@ -86,7 +86,7 @@ public:
         glBindTexture(GL_TEXTURE_2D, normalMap);
     }
     void unbindNormalMap() const {
-        glActiveTexture(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     
@@ -95,7 +95,7 @@ public:
         glBindTexture(GL_TEXTURE_2D, specularMap);
     }
     void unbindSpecularMap() const {
-        glActiveTexture(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 

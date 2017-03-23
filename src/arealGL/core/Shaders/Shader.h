@@ -89,9 +89,8 @@ public:
     virtual void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const Color& color) const { }
     virtual void setMaterialUniforms(float spectralReflectivity, float shineDamper) const { }
     virtual void setLightUniforms() const { }
-    
+
     virtual ~Shader() { glDeleteProgram(programID); }
-    
     
 protected:
     void setAttribute(int index, const std::string name) {

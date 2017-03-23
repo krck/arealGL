@@ -92,7 +92,7 @@ int main() {
         
         // spin the box
         box->setAngle(0.01f);
-        
+    
         batchRender.submit(sun);
         batchRender.submit(nanosuit);
         batchRender.submit(box);
@@ -108,7 +108,8 @@ int main() {
         // And render that to the actual Window
         window.setAsRenderTarget();
         batchRender.renderFBOtoDefaultScreen(*fboShader, renderQuad, fboIntermediate);
-        
+
+        // Check for Errors
         const GLenum e (glGetError());
         if(e != GL_NO_ERROR) { std::cout <<" OpenGL ERROR: " <<e <<std::endl; }
         

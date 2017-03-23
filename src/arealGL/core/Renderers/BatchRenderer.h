@@ -64,12 +64,14 @@ public:
                 for(const Mesh& mesh : entity->model->meshes) {
                     // Activate and bind all the textures
                     mesh.texture.bindTexture();
+                    mesh.texture.bindNormalMap();
                     entity->shader->setMaterialUniforms(mesh.texture.getMaterial().spectralReflectivity, mesh.texture.getMaterial().shineDamper);
                     // Get the show on the road
                     glBindVertexArray(mesh.getVAO());
                     glDrawElements(GL_TRIANGLES, (int)mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
                     glBindVertexArray(0);
                     // Set everything back to defaults
+                    mesh.texture.unbindNormalMap();
                     mesh.texture.unbindTexture();
                 }
             }

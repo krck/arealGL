@@ -1,7 +1,7 @@
 #version 410 core
 
 in vec2 textureCoords;
-in vec3 surfaceNormal;
+in mat3 tbnMatrix;
 in vec3 toLightVector[4];
 in vec3 toCameraVector;
 
@@ -15,12 +15,12 @@ uniform vec3 u_attenuation[4];
 uniform float u_spectralReflectivity;
 uniform float u_shineDamper;
 
-uniform sampler2D texture_diffuse1;
-uniform sampler2D texture_specular1;
+uniform sampler2D texture_diffuse;
+uniform sampler2D normal_MAP;
 
 
 void main() {
-    vec4 textureColor = texture(texture_diffuse1, textureCoords);
+    vec4 textureColor = texture(texture_diffuse, textureCoords);
 
     vec4 totalDiffuse = vec4(0.0f);
     vec3 totalSpecular = vec3(0.0f);
@@ -28,8 +28,8 @@ void main() {
         // Point light extras
         float dist = length(toLightVector[i]);
         float attFactor = u_attenuation[i].x + (u_attenuation[i].y * dist) + (u_attenuation[i].z * (dist * dist));
-        // Diffuse lighting
-        vec3 unitNormal = normalize(surfaceNormal);
+        // Diffuse lighting with normal map normals
+        vec3 unitNormal = normalize(tbnMatrix * (((255.0f/128.0f) * texture(normal_MAP, textureCoords).rgb - 1.0f)));
         vec3 unitToLight = normalize(toLightVector[i]);
         float brightness = max(dot(unitNormal, unitToLight), 0.0f);
         totalDiffuse += (vec4((brightness * u_lightColor[i]), 1.0f) / attFactor) * u_intensity[i];

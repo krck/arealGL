@@ -46,7 +46,8 @@ public:
         // Set the Attributes
         setAttribute(0, "position");
         setAttribute(1, "normal");
-        setAttribute(2, "texCoords");
+        setAttribute(2, "tangent");
+        setAttribute(3, "texCoords");
         // Set the Uniforms
         setUniform("u_transform");
         setUniform("u_projection");
