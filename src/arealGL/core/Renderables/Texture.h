@@ -57,15 +57,8 @@ private:
 public:
     Texture(const Texture& rhs) = default;
     Texture(Texture&& rhs) noexcept = default;
-    Texture(uint textureID, const std::string& path) : textureDiffuse(textureID), path(path) { }
-    Texture(uint textureID, uint normalID, const std::string& path) : textureDiffuse(textureID), normalMap(normalID), path(path) { }
     Texture(uint textureID, uint normalID, uint specularID, const std::string& path)
     : textureDiffuse(textureID), normalMap(normalID), specularMap(specularID), path(path) { }
-    
-    Texture(uint textureID, const Material& mat, const std::string& path)
-    : textureDiffuse(textureID), material(mat), path(path) { }
-    Texture(uint textureID, uint normalID, const Material& mat, const std::string& path)
-    : textureDiffuse(textureID), normalMap(normalID), material(mat), path(path) { }
     Texture(uint textureID, uint normalID, uint specularID, const Material& mat, const std::string& path)
     : textureDiffuse(textureID), normalMap(normalID), specularMap(specularID), material(mat), path(path) { }
     
@@ -82,21 +75,29 @@ public:
     }
     
     void bindNormalMap() const {
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, normalMap);
+        if(normalMap) {
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_2D, normalMap);
+        }
     }
     void unbindNormalMap() const {
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        if(normalMap) {
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
     }
     
     void bindSpecularMap() const {
-        glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, specularMap);
+        if(specularMap) {
+            glActiveTexture(GL_TEXTURE2);
+            glBindTexture(GL_TEXTURE_2D, specularMap);
+        }
     }
     void unbindSpecularMap() const {
-        glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        if(specularMap) {
+            glActiveTexture(GL_TEXTURE2);
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
     }
 
     inline void setAmbientReflectivity(float aRef) { this->material.ambientReflectivity = aRef; }

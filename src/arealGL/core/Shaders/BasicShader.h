@@ -44,6 +44,8 @@ public:
         setAttribute(1, "normal");
         setAttribute(2, "tangent");
         setAttribute(3, "texCoords");
+        // Textures
+        setUniform("texture_diffuse");
         // Set the Uniforms
         setUniform("u_transform");
         setUniform("u_projection");
@@ -56,6 +58,11 @@ public:
         uniformMat4("u_transform", transform);
         uniformMat4("u_projection", projection);
         uniformMat4("u_view", view);
+    }
+    
+    void setMaterialUniforms(float spectralReflectivity, float shineDamper) const override {
+        // Only set the Texture samplers
+        uniformInt("texture_diffuse", 0);
     }
     
 };

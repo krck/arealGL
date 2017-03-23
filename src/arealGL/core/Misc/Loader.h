@@ -92,7 +92,7 @@ public:
                 }
             }
         }
-        meshes.push_back(Mesh(tmpVertices, tmpIndices, Texture(0, ""), (path.substr(0, path.rfind('/')))));
+        meshes.push_back(Mesh(tmpVertices, tmpIndices, Texture(0, 0, 0, ""), (path.substr(0, path.rfind('/')))));
         return std::make_shared<Model>(meshes);
     }
     
@@ -130,7 +130,7 @@ private:
     Mesh processMesh(aiMesh *mesh, const aiScene *scene, const std::string& dir) {
         std::vector<Vertex> tmpVertices;
         std::vector<uint> tmpIndices;
-        Texture tmpTexture = Texture(0, "");
+        Texture tmpTexture = Texture(0, 0, 0, "");
         // Get all of the mesh's vertices
         for (uint i = 0; i < mesh->mNumVertices; i++) {
             Vertex tmpvec;
