@@ -110,13 +110,12 @@ int main() {
         batchRender.renderFBOtoDefaultScreen(*fboShader, renderQuad, fboIntermediate);
 
         // Check for Errors
-        const GLenum e (glGetError());
+        const GLenum e = glGetError();
         if(e != GL_NO_ERROR) { std::cout <<" OpenGL ERROR: " <<e <<std::endl; }
         
         window.update();
-        timer.calculateFPS();
+        timer.getFPS(true);
         timer.limitFPSend();
-        timer.printFPS();
     }
     
     return 0;

@@ -75,6 +75,12 @@
 		D0A045561E81727200BBD747 /* FboShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FboShader.h; sourceTree = "<group>"; };
 		D0A045571E8172CC00BBD747 /* fboShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fboShader.frag; sourceTree = "<group>"; };
 		D0A045581E8172CC00BBD747 /* fboShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fboShader.vert; sourceTree = "<group>"; };
+		D0D8031E1E85195B004F699F /* Mat4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mat4.h; sourceTree = "<group>"; };
+		D0D8031F1E85195B004F699F /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
+		D0D803201E85195B004F699F /* Matrix_Transformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix_Transformation.h; sourceTree = "<group>"; };
+		D0D803211E85195B004F699F /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
+		D0D803221E85195B004F699F /* Vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec3.h; sourceTree = "<group>"; };
+		D0D803231E85195B004F699F /* Vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec4.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +190,7 @@
 				D088E9FB1E7FEE3200A08EDB /* Renderers */,
 				D088E9FF1E7FEE3200A08EDB /* Shaders */,
 				D088EA511E7FEF7C00A08EDB /* Misc */,
+				D0D8031D1E85195B004F699F /* Math */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -274,6 +281,19 @@
 				D088EA5C1E7FF08700A08EDB /* Camera.h */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		D0D8031D1E85195B004F699F /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				D0D8031F1E85195B004F699F /* Math.h */,
+				D0D803211E85195B004F699F /* Vec2.h */,
+				D0D803221E85195B004F699F /* Vec3.h */,
+				D0D803231E85195B004F699F /* Vec4.h */,
+				D0D8031E1E85195B004F699F /* Mat4.h */,
+				D0D803201E85195B004F699F /* Matrix_Transformation.h */,
+			);
+			path = Math;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

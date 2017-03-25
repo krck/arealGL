@@ -69,9 +69,8 @@ public:
         Assimp::Importer importer;
         const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs  | aiProcess_CalcTangentSpace);
         if(scene != nullptr) {
-            // Get the first mesh
+            // Get only the first mesh
             const aiMesh* mesh = scene->mMeshes[0];
-            // Walk through each of the mesh's vertices
             for(uint i = 0; i < mesh->mNumVertices; i++) {
                 Vertex tmpvec;
                 tmpvec.position.x = mesh->mVertices[i].x;
@@ -80,8 +79,9 @@ public:
                 tmpvec.normal.x = mesh->mNormals[i].x;
                 tmpvec.normal.y = mesh->mNormals[i].y;
                 tmpvec.normal.z = mesh->mNormals[i].z;
-                // default values as texture coords and no tangents needed
-                tmpvec.texcoords = glm::vec2(0.0f);
+                // default values for tangents and texture coords
+                tmpvec.tangent = glm::vec3();
+                tmpvec.texcoords = glm::vec2();
                 tmpVertices.push_back(tmpvec);
             }
             // Now retrieve the corresponding vertex indices from the meshs faces
@@ -104,14 +104,15 @@ public:
         if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
             std::cout <<"ERROR::ASSIMP:: " <<importer.GetErrorString() <<std::endl;
             return nullptr;
+        } else {
+            // Retrieve the directory path of the filepath
+            const std::string directory = path.substr(0, path.find_last_of('/'));
+            std::vector<Mesh> tmpMeshes;
+            // Process ASSIMP nodes recursively
+            this->processNode(scene->mRootNode, scene, directory, tmpMeshes);
+            // Create the loaded Model
+            return std::make_shared<Model>(tmpMeshes);
         }
-        // Retrieve the directory path of the filepath
-        const std::string directory = path.substr(0, path.find_last_of('/'));
-        std::vector<Mesh> tmpMeshes;
-        // Process ASSIMP nodes recursively
-        this->processNode(scene->mRootNode, scene, directory, tmpMeshes);
-        // Create the loaded Model
-        return std::make_shared<Model>(tmpMeshes);
     }
     
 private:

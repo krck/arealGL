@@ -55,7 +55,7 @@ private:
 public:
     Timer() : prevTicks(std::chrono::high_resolution_clock::now().time_since_epoch().count()), currentFrame(0) {}
     
-    void calculateFPS() {
+    void getFPS(bool print) {
         const time_point tp = std::chrono::high_resolution_clock::now();
         currentTicks = std::chrono::time_point_cast<std::chrono::milliseconds>(tp).time_since_epoch().count();
         frameTimes[currentFrame % FRAME_SAMPLES] = (currentTicks - prevTicks);
@@ -66,12 +66,12 @@ public:
         // calculate frames per second (dont divide by zero)
         frameTimeAverage > 0 ? fps = 1000.0f / frameTimeAverage : fps = 60.0f;
         currentFrame++;
+        if(print) { std::cout <<"FPS: " <<(int)fps <<std::endl; }
         return;
     }
     
-    inline void printFPS() const { std::cout <<"FPS: " <<(int)fps <<std::endl; }
-    
     inline void limitFPSstart() { startTicks = std::chrono::high_resolution_clock::now(); }
+    
     void limitFPSend() const {
         const time_point endTicks = std::chrono::high_resolution_clock::now();
         const float start = std::chrono::time_point_cast<std::chrono::milliseconds>(startTicks).time_since_epoch().count();

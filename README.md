@@ -20,6 +20,15 @@ Using
 
 Compiled with: LLVM 7.0 clang++ / Compiler flags: -Os -std=c++14
 
+NEXT UP
+--------
+
+- GUI Elements
+- Simple GUI rendering
+- Fonts and Font rendering
+- Master Renderer (Batched-Entity-Renderer / GUI-Font-Renderer)
+- Application Class (to clean up main)
+- Application State (Game State / Menu State)
 
 TODO (Basics)
 --------
@@ -27,7 +36,8 @@ TODO (Basics)
 - [ ] Skybox
 - [ ] Simple GUI rendering
 - [ ] Font rendering
-- [ ] Normal mapping
+- [ ] Rendering System
+- [X] Normal mapping
 - [ ] Particle Effects
 - [ ] Instancing / Buffer combinig
 - [ ] Shadows
@@ -41,6 +51,6 @@ TODO (Big stuff)
 - [ ] Physics Engine
 - [ ] GUI Framework
 - [ ] Oculus VR Support
-- [ ] Multithreading
+- [ ] Basic Architecture / Multithreading / Exception handling
 
 

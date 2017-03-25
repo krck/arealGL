@@ -33,7 +33,6 @@
 #define Types_h
 
 #include <chrono>
-#include <vec3.hpp>
 
 // arealGL Types
 typedef unsigned char   byte;

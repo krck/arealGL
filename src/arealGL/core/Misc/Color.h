@@ -49,7 +49,7 @@ public:
     _Color() : r(1.0f), g(1.0f), b(1.0f), a(1.0f) {}		// white as default
     _Color(const _Color& rhs) = default;
     _Color(_Color&& rhs) noexcept = default;
-    _Color(T red, T green, T blue) : r(red), g(green), b(blue) {}
+    _Color(T red, T green, T blue) : r(red), g(green), b(blue), a(1) {}
     _Color(T red, T green, T blue, T alpha) : r(red), g(green), b(blue), a(alpha) {}
     
     // operator =
