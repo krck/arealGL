@@ -63,12 +63,16 @@ public:
         
     }
     
-    //    Camera(const glm::vec3& pos, const glm::vec3& front, const glm::vec3& up) : worldUp(glm::vec3(0,1,0)) {
-    //        this->position = pos;
-    //        this->front = glm::normalize(front);
-    //        this->up = glm::normalize(up);
-    //        right = getRight();
-    //    }
+    Camera(const glm::vec3& pos, const glm::vec3& front, const glm::vec3& up) : worldUp(glm::vec3(0.0f, 1.0f, 0.0f)), lastX(0.0f), lastY(0.0f) {
+        this->position = pos;
+        this->front = front;
+        this->up = up;
+        right = glm::vec3();
+        pitch = 0.0f;
+        yaw = -90.0f;
+        mouseSens = 0.5f;
+        moveSpeed = 3.0f;
+    }
     
     
     inline void changePosition(MoveDirection dir, float deltaTime) {
@@ -101,7 +105,8 @@ public:
     }
     
     
-    inline glm::mat4 getView() const { return glm::lookAt(this->position, (this->position + this->front), this->up); }
+    inline glm::mat4 getView() const { return glm::lookAt(this->position, (this->position + this->front), this->up);
+    }
     
     inline void setPosition(const glm::vec3& position) { this->position = position; }
     inline void setPosition(glm::vec3&& position) noexcept { this->position = std::move(position); }

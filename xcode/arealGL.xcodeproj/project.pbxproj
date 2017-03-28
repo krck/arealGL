@@ -27,10 +27,6 @@
 
 /* Begin PBXFileReference section */
 		D013C6581E83F1C200B5FC57 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
-		D013C65A1E83F21600B5FC57 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
-		D013C65B1E83F21600B5FC57 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
-		D013C65C1E83F21600B5FC57 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
-		D013C65D1E83F25C00B5FC57 /* RenderQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderQuad.h; sourceTree = "<group>"; };
 		D013C65F1E83F37300B5FC57 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		D013C6601E83F37300B5FC57 /* FrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameBuffer.h; sourceTree = "<group>"; };
 		D013C6611E83F37300B5FC57 /* IndexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexBuffer.h; sourceTree = "<group>"; };
@@ -81,6 +77,12 @@
 		D0D803211E85195B004F699F /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
 		D0D803221E85195B004F699F /* Vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec3.h; sourceTree = "<group>"; };
 		D0D803231E85195B004F699F /* Vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec4.h; sourceTree = "<group>"; };
+		D0F5F7A71E8A7A0F003A00DD /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		D0F5F7A81E8A7A0F003A00DD /* RenderQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderQuad.h; sourceTree = "<group>"; };
+		D0F5F7A91E8A7A0F003A00DD /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
+		D0F5F7AA1E8A7A95003A00DD /* Renderable2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderable2D.h; sourceTree = "<group>"; };
+		D0F5F7AB1E8A7A95003A00DD /* Renderable3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderable3D.h; sourceTree = "<group>"; };
+		D0F5F7AC1E8A7A95003A00DD /* RenderableGUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderableGUI.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,17 +99,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D013C6591E83F21600B5FC57 /* Renderables */ = {
-			isa = PBXGroup;
-			children = (
-				D013C65B1E83F21600B5FC57 /* Model.h */,
-				D013C65A1E83F21600B5FC57 /* Mesh.h */,
-				D013C65C1E83F21600B5FC57 /* Texture.h */,
-				D013C65D1E83F25C00B5FC57 /* RenderQuad.h */,
-			);
-			path = Renderables;
-			sourceTree = "<group>";
-		};
 		D013C65E1E83F37300B5FC57 /* Buffers */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,7 +177,7 @@
 				D088EA541E7FEFFF00A08EDB /* IO */,
 				D013C65E1E83F37300B5FC57 /* Buffers */,
 				D088EA5B1E7FF08700A08EDB /* Entities */,
-				D013C6591E83F21600B5FC57 /* Renderables */,
+				D0F5F7A61E8A7A0F003A00DD /* RenderData */,
 				D088E9FB1E7FEE3200A08EDB /* Renderers */,
 				D088E9FF1E7FEE3200A08EDB /* Shaders */,
 				D088EA511E7FEF7C00A08EDB /* Misc */,
@@ -277,6 +268,9 @@
 			isa = PBXGroup;
 			children = (
 				D088EA5D1E7FF08700A08EDB /* Entity.h */,
+				D0F5F7AB1E8A7A95003A00DD /* Renderable3D.h */,
+				D0F5F7AA1E8A7A95003A00DD /* Renderable2D.h */,
+				D0F5F7AC1E8A7A95003A00DD /* RenderableGUI.h */,
 				D088EA5E1E7FF08700A08EDB /* Light.h */,
 				D088EA5C1E7FF08700A08EDB /* Camera.h */,
 			);
@@ -294,6 +288,16 @@
 				D0D803201E85195B004F699F /* Matrix_Transformation.h */,
 			);
 			path = Math;
+			sourceTree = "<group>";
+		};
+		D0F5F7A61E8A7A0F003A00DD /* RenderData */ = {
+			isa = PBXGroup;
+			children = (
+				D0F5F7A71E8A7A0F003A00DD /* Mesh.h */,
+				D0F5F7A81E8A7A0F003A00DD /* RenderQuad.h */,
+				D0F5F7A91E8A7A0F003A00DD /* Texture.h */,
+			);
+			path = RenderData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

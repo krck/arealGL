@@ -37,7 +37,7 @@
 #include <queue>
 #include <memory>
 
-#include "Entity.h"
+#include "Renderable3D.h"
 #include "RenderQuad.h"
 #include "Camera.h"
 #include "FrameBuffer.h"
@@ -47,7 +47,7 @@ namespace arealGL {
 
 class Renderer {
 public:
-    virtual void submit(std::shared_ptr<Entity> entity) = 0;
+    virtual void submit(std::shared_ptr<Renderable3D> entity) = 0;
     
     virtual void render(const Camera& cam, const glm::mat4& projection) = 0;
     

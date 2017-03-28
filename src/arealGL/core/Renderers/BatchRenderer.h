@@ -42,12 +42,12 @@ namespace arealGL {
 
 class BatchRenderer : public Renderer {
 private:
-    std::map<std::shared_ptr<Shader>, std::vector<std::shared_ptr<Entity>>> renderables;
+    std::map<std::shared_ptr<Shader>, std::vector<std::shared_ptr<Renderable3D>>> renderables;
     
 public:
-    void submit(std::shared_ptr<Entity> entity) {
+    void submit(std::shared_ptr<Renderable3D> entity) {
         if(renderables.count(entity->shader) == 0) {
-            std::vector<std::shared_ptr<Entity>> tmp { entity };
+            std::vector<std::shared_ptr<Renderable3D>> tmp { entity };
             renderables.insert(std::make_pair(entity->shader, tmp));
         } else {
             renderables[entity->shader].push_back(entity);
@@ -61,7 +61,7 @@ public:
             for(auto entity : renderpair.second) {
                 shader->setLightUniforms();
                 shader->setModelUniforms(entity->getTransformation(), cam.getView(), projection, entity->getColor());
-                for(const Mesh& mesh : entity->model->meshes) {
+                for(const Mesh& mesh : *entity->model) {
                     // Activate and bind all the textures
                     mesh.texture.bindTexture();
                     mesh.texture.bindNormalMap();

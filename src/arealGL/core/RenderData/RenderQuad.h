@@ -1,4 +1,4 @@
-// Model.h
+//  RenderQuad.h
 /*************************************************************************************
  *  arealGL (OpenGL graphics library)                                                *
  *-----------------------------------------------------------------------------------*
@@ -29,25 +29,48 @@
  *                                                                                   *
  *************************************************************************************/
 
-#ifndef Model_h
-#define Model_h
+#ifndef RenderQuad_h
+#define RenderQuad_h
 
-#include <string>
-#include <vector>
-#include <memory>
-
-#include "Mesh.h"
+// ---------------------------------------------------------
+// CAN BE REPLACED, AS SOON AS 2D RENDER OBJECTS ARE A THING
+// ---------------------------------------------------------
 
 namespace arealGL {
-
-class Model {
-public:
-    const std::vector<Mesh> meshes;
+    
+class RenderQuad;
+typedef std::vector<RenderQuad> Quads;
+    
+    
+class RenderQuad {
+private:
+    const std::vector<float> quadVertices {
+        // Positions   // TexCoords
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        -1.0f, -1.0f,  0.0f, 0.0f,
+        1.0f, -1.0f,  1.0f, 0.0f,
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        1.0f, -1.0f,  1.0f, 0.0f,
+        1.0f,  1.0f,  1.0f, 1.0f
+    };
+    
+    uint quadVAO, quadVBO;
     
 public:
-    Model(const std::vector<Mesh>& meshes) : meshes(meshes) { }
-    Model(std::vector<Mesh>&& meshes) : meshes(std::move(meshes)) { }
- 
+    RenderQuad() {
+        glGenVertexArrays(1, &quadVAO);
+        glGenBuffers(1, &quadVBO);
+        glBindVertexArray(quadVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+        glBufferData(GL_ARRAY_BUFFER, (sizeof(float) * quadVertices.size()), &quadVertices[0], GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
+        glBindVertexArray(0);
+    }
+    
+    inline uint getVAO() const { return this->quadVAO; }
 };
     
 }

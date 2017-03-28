@@ -40,7 +40,7 @@
 #include <vector>
 #include <memory>
 
-#include "Model.h"
+#include "Mesh.h"
 #include "Types.h"
 #include "Config.h"
 

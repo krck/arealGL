@@ -72,12 +72,13 @@ int main() {
     RenderQuad renderQuad;
     
     // Create Entities (and set the translations)
-    std::shared_ptr<Entity> sun = std::make_shared<Entity>(sunModel, basicNoTexShader, glm::vec3(0.0f, 10.0f, -10.0f), CL_YELLOW_PALE);
-    std::shared_ptr<Entity> nanosuit = std::make_shared<Entity>(nanosuitModel, lightShader, glm::vec3(0.0f, -0.45f, 0.0f), 0.25f, CL_WHITE);
-    std::shared_ptr<Entity> box = std::make_shared<Entity>(boxModel, lightShader, glm::vec3(0.0f, 0.5f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 1.0f, CL_WHITE);
-    std::shared_ptr<Entity> floor = std::make_shared<Entity>(floorModel, lightShader, glm::vec3(0.0f, -10.5f, 0.0f), CL_WHITE);
-    std::shared_ptr<Entity> leftLamp = std::make_shared<Entity>(lampModel, basicShader, glm::vec3(4.0f, 6.0f, 4.0f), 0.2f, CL_GREEN);
-    std::shared_ptr<Entity> rightLamp = std::make_shared<Entity>(lampModel, basicShader, glm::vec3(-4.0f, 6.0f, 4.0f), 0.2f, CL_BLUE);
+    std::shared_ptr<Renderable3D> sun = std::make_shared<Renderable3D>(sunModel, basicNoTexShader, glm::vec3(0.0f, 10.0f, -10.0f), CL_YELLOW_PALE);
+    std::shared_ptr<Renderable3D> nanosuit = std::make_shared<Renderable3D>(nanosuitModel, lightShader, glm::vec3(0.0f, -0.45f, 0.0f), glm::vec3(0.25f), CL_WHITE);
+    std::shared_ptr<Renderable3D> floor = std::make_shared<Renderable3D>(floorModel, lightShader, glm::vec3(0.0f, -10.5f, 0.0f), CL_WHITE);
+    std::shared_ptr<Renderable3D> leftLamp = std::make_shared<Renderable3D>(lampModel, basicShader, glm::vec3(4.0f, 6.0f, 4.0f), glm::vec3(0.2f), CL_GREEN);
+    std::shared_ptr<Renderable3D> rightLamp = std::make_shared<Renderable3D>(lampModel, basicShader, glm::vec3(-4.0f, 6.0f, 4.0f), glm::vec3(0.2f), CL_BLUE);
+    std::shared_ptr<Renderable3D> box = std::make_shared<Renderable3D>(boxModel, lightShader, glm::vec3(0.0f, 0.5f, 4.0f),
+                                                                       glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 1.0f, CL_WHITE);
     
     // MAIN LOOP
     while (!window.closed()) {

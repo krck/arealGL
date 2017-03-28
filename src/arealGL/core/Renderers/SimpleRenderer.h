@@ -38,10 +38,10 @@ namespace arealGL {
 
 class SimpleRenderer : public Renderer {
 private:
-    std::queue<std::shared_ptr<Entity>> renderables;
+    std::queue<std::shared_ptr<Renderable3D>> renderables;
     
 public:
-    void submit(std::shared_ptr<Entity> entity) {
+    void submit(std::shared_ptr<Renderable3D> entity) {
         renderables.push(entity);
     }
     
@@ -52,7 +52,7 @@ public:
             entity->shader->setModelUniforms(entity->getTransformation(), cam.getView(), projection, entity->getColor());
             entity->shader->setLightUniforms();
             // render each mesh of the model
-            for(const Mesh& mesh : entity->model->meshes) {
+            for(const Mesh& mesh : *entity->model) {
                 // Activate and bind all the textures
                 mesh.texture.bindTexture();
                 mesh.texture.bindNormalMap();
