@@ -170,15 +170,8 @@
     <ClInclude Include="src\arealGL\core\IO\Keyboard.h" />
     <ClInclude Include="src\arealGL\core\IO\Mouse.h" />
     <ClInclude Include="src\arealGL\core\IO\Sound.h" />
-    <ClInclude Include="src\arealGL\core\Math\Mat4.h" />
-    <ClInclude Include="src\arealGL\core\Math\Math.h" />
-    <ClInclude Include="src\arealGL\core\Math\Matrix_Transformation.h" />
-    <ClInclude Include="src\arealGL\core\Math\Vec2.h" />
-    <ClInclude Include="src\arealGL\core\Math\Vec3.h" />
-    <ClInclude Include="src\arealGL\core\Math\Vec4.h" />
     <ClInclude Include="src\arealGL\core\Misc\Color.h" />
     <ClInclude Include="src\arealGL\core\Misc\Loader.h" />
-    <ClInclude Include="src\arealGL\core\Misc\Timer.h" />
     <ClInclude Include="src\arealGL\core\RenderData\Mesh.h" />
     <ClInclude Include="src\arealGL\core\RenderData\RenderQuad.h" />
     <ClInclude Include="src\arealGL\core\RenderData\Texture.h" />

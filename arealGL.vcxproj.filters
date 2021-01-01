@@ -20,21 +20,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\arealGL\core\Buffers\Buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\arealGL\core\Buffers\FrameBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\arealGL\core\Buffers\IndexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\arealGL\core\Buffers\VertexArrayObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\arealGL\core\Buffers\VertexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\arealGL\core\Entities\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,9 +54,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\arealGL\core\Misc\Loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\arealGL\core\Misc\Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\arealGL\core\RenderData\Mesh.h">
@@ -122,22 +104,19 @@
     <ClInclude Include="src\arealGL\Types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\arealGL\core\Math\Mat4.h">
+    <ClInclude Include="src\arealGL\core\Buffers\Buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\arealGL\core\Math\Math.h">
+    <ClInclude Include="src\arealGL\core\Buffers\IndexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\arealGL\core\Math\Matrix_Transformation.h">
+    <ClInclude Include="src\arealGL\core\Buffers\VertexArrayObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\arealGL\core\Math\Vec2.h">
+    <ClInclude Include="src\arealGL\core\Buffers\VertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\arealGL\core\Math\Vec3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\arealGL\core\Math\Vec4.h">
+    <ClInclude Include="src\arealGL\core\Buffers\FrameBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,39 +1,10 @@
-// game.cpp
-/*************************************************************************************
- *  arealGL (OpenGL graphics library)                                                *
- *-----------------------------------------------------------------------------------*
- *  Copyright (c) 2015, Peter Baumann                                                *
- *  All rights reserved.                                                             *
- *                                                                                   *
- *  Redistribution and use in source and binary forms, with or without               *
- *  modification, are permitted provided that the following conditions are met:      *
- *    1. Redistributions of source code must retain the above copyright              *
- *       notice, this list of conditions and the following disclaimer.               *
- *    2. Redistributions in binary form must reproduce the above copyright           *
- *       notice, this list of conditions and the following disclaimer in the         *
- *       documentation and/or other materials provided with the distribution.        *
- *    3. Neither the name of the organization nor the                                *
- *       names of its contributors may be used to endorse or promote products        *
- *       derived from this software without specific prior written permission.       *
- *                                                                                   *
- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  *
- *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED    *
- *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE           *
- *  DISCLAIMED. IN NO EVENT SHALL PETER BAUMANN BE LIABLE FOR ANY                    *
- *  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES       *
- *  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;     *
- *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND      *
- *  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT       *
- *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS    *
- *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                     *
- *                                                                                   *
- *************************************************************************************/
-
 #include <iostream>
+#include <array>
+#include <time.h>
 
 #include "..\arealGL\arealGL.h"
-#include "../arealGL/core/IO/Mouse.h"
-#include "../arealGL/core/IO/Keyboard.h"
+#include "..\arealGL\core\IO\Mouse.h"
+#include "..\arealGL\core\IO\Keyboard.h"
 
 using namespace std;
 using namespace arealGL;
@@ -48,7 +19,6 @@ int main() {
     FrameBuffer fboMSAA = FrameBuffer(window.width(), window.height(), true);
     FrameBuffer fboIntermediate = FrameBuffer(window.width(), window.height(), false);
     Camera camera;
-    Timer timer;
     
     const glm::mat4 projection = glm::perspective(window.fieldOfView(), (window.width() / window.height()), 0.1f, 1000.0f);
     
@@ -84,8 +54,7 @@ int main() {
     
     // MAIN LOOP
     while (!window.closed()) {
-        timer.limitFPSstart();
-        // window.clear();
+        //window.clear();
         
         if(keyboard.KeyIsPressed(GLFW_KEY_A)) { camera.changePosition(MoveDirection::LEFT, 0.02f); }
         if(keyboard.KeyIsPressed(GLFW_KEY_D)) { camera.changePosition(MoveDirection::RIGHT, 0.02f); }
@@ -116,9 +85,9 @@ int main() {
         const GLenum e = glGetError();
         if(e != GL_NO_ERROR) { std::cout <<" OpenGL ERROR: " <<e <<std::endl; }
         
+        // Handle Window Events
+        // Swap Display buffer
         window.update();
-        timer.getFPS(true);
-        timer.limitFPSend();
     }
     
     return 0;
