@@ -38,14 +38,14 @@
 #include <sstream>
 #include <fstream>
 
-#include "Light.h"
-#include "Color.h"
-#include "Config.h"
+#include "..\Entities\Light.h"
+#include "..\Misc\Color.h"
+#include "..\..\Config.h"
 
-#include <vec2.hpp>
-#include <vec3.hpp>
-#include <vec4.hpp>
-#include <mat4x4.hpp>
+#include <glm\vec2.hpp>
+#include <glm\vec3.hpp>
+#include <glm\vec4.hpp>
+#include <glm\mat4x4.hpp>
 
 namespace arealGL {
 

@@ -35,7 +35,7 @@
 #include <queue>
 #include <vector>
 
-#include "Config.h"
+#include "..\..\Config.h"
 
 namespace arealGL {
 

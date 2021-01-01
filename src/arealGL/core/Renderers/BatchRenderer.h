@@ -84,6 +84,7 @@ public:
     void renderFBOtoDefaultScreen(const Shader& shader, const RenderQuad& renderQuad, const FrameBuffer& fbo) {
         shader.bind();
         glBindVertexArray(renderQuad.getVAO());
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glBindTexture(GL_TEXTURE_2D, fbo.getTextureColorbuffer());
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);

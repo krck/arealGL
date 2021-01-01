@@ -31,14 +31,16 @@
 
 #include <iostream>
 
-#include "arealGL.h"
+#include "..\arealGL\arealGL.h"
+#include "../arealGL/core/IO/Mouse.h"
+#include "../arealGL/core/IO/Keyboard.h"
 
 using namespace std;
 using namespace arealGL;
 
 int main() {
     
-    Window window { "arealGL TEST", 1024, 768, false };
+    Window window { "arealGL TEST", 1920, 1080, false };
     const MouseClient& mouse = window.mouseClient();
     const KeyboardClient& keyboard = window.keyboardClient();
     Loader loader = Loader();
@@ -64,10 +66,10 @@ int main() {
     
     // Load Models
     std::shared_ptr<Model> sunModel = loader.LoadSimpleModelFromFile(MODEL_BASEPATH + "shpere.obj");
-    std::shared_ptr<Model> nanosuitModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "nanosuit/nanosuit.obj");
-    std::shared_ptr<Model> boxModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube/cube.obj");
-    std::shared_ptr<Model> floorModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube3/cube.obj");
-    std::shared_ptr<Model> lampModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube2/cube2.obj");
+    std::shared_ptr<Model> nanosuitModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "nanosuit\\nanosuit.obj");
+    std::shared_ptr<Model> boxModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube\\cube.obj");
+    std::shared_ptr<Model> floorModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube3\\cube.obj");
+    std::shared_ptr<Model> lampModel = loader.LoadComplexModelFromFile(MODEL_BASEPATH + "cube2\\cube2.obj");
     // Simple quad model to render FBO texture on
     RenderQuad renderQuad;
     

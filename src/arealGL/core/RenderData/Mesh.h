@@ -36,14 +36,13 @@
 #include <sstream>
 #include <vector>
 
-#include "Types.h"
-#include "Config.h"
-#include "Camera.h"
-#include "Texture.h"
+#include "..\..\Types.h"
+#include "..\..\Config.h"
+#include "..\Entities\Camera.h"
+#include "..\RenderData\Texture.h"
 
-#include <vec2.hpp>
-#include <vec3.hpp>
-#include "Importer.hpp"
+#include <glm\vec2.hpp>
+#include <glm\vec3.hpp>
 
 namespace arealGL {
     

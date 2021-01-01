@@ -32,8 +32,8 @@
 #ifndef Light_h
 #define Light_h
 
-#include "Color.h"
-#include <vec3.hpp>
+#include "..\Misc\Color.h"
+#include <glm\vec3.hpp>
 
 namespace arealGL {
 

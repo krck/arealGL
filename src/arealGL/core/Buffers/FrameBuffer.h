@@ -32,10 +32,10 @@
 #ifndef FrameBuffer_h
 #define FrameBuffer_h
 
-#include "Window.h"
-#include "Config.h"
-#include "Types.h"
-#include "Mesh.h"
+#include "..\Window\Window.h"
+#include "..\..\Config.h"
+#include "..\..\Types.h"
+#include "..\RenderData\Mesh.h"
 
 namespace arealGL {
     

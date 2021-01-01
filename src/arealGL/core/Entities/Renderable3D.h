@@ -33,8 +33,7 @@
 #define Renderable3D_h
 
 #include "Entity.h"
-#include "Mesh.h"
-#include "Vec3.h"
+#include "..\RenderData\Mesh.h"
 
 namespace arealGL {
     

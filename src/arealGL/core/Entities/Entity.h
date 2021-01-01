@@ -34,9 +34,9 @@
 
 #include <memory>
 
-#include "Shader.h"
-#include "Color.h"
-#include <mat4x4.hpp>
+#include "..\Shaders\Shader.h"
+#include "..\Misc\Color.h"
+#include <glm\mat4x4.hpp>
 
 namespace arealGL {
 

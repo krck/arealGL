@@ -37,7 +37,7 @@
 // ---------------------------------------------------------
 
 #include <memory>
-#include "Types.h"
+#include "..\..\Types.h"
 
 namespace arealGL {
 

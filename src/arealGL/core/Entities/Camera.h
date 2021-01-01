@@ -32,8 +32,8 @@
 #ifndef Camera_h
 #define Camera_h
 
-#include <vec3.hpp>
-#include <gtx/transform.hpp>
+#include <glm\vec3.hpp>
+#include <glm\gtx\transform.hpp>
 
 #include "math.h"
 

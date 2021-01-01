@@ -33,7 +33,7 @@
 #define Color_h
 
 #include <memory>
-#include <vec3.hpp>
+#include <glm\vec3.hpp>
 
 namespace arealGL {
 

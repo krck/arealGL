@@ -32,7 +32,7 @@
 #ifndef IO_Events_h
 #define IO_Events_h
 
-#include "Config.h"
+#include "..\..\Config.h"
 #include "Keyboard.h"
 #include "Mouse.h"
 

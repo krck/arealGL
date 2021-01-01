@@ -37,8 +37,8 @@
 #include <iostream>
 #include <thread>
 
-#include "Config.h"
-#include "Types.h"
+#include "..\..\Config.h"
+#include "..\..\Types.h"
 
 namespace arealGL {
 

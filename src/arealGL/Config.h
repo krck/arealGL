@@ -32,14 +32,17 @@
 #ifndef Config_h
 #define Config_h
 
-// include opengl framework
-#include <OpenGL/OpenGL.h>
-#include <OpenGL/glu.h>
-#include <OpenGL/gl3.h>
-#include <OpenGL/glext.h>
+#define GLEW_STATIC
+#include <GLEW/glew.h>
 
-#define SHADER_BASEPATH         std::string("/Users/peter/Documents/github/C++/arealGL/resources/Shaders/")
-#define MODEL_BASEPATH          std::string("/Users/peter/Desktop/graphic_objects/")
+#include <GLFW/glfw3.h>
+#include <glm\glm.hpp>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image\stb_image.h>
+
+#define SHADER_BASEPATH         std::string("C:\\Users\\PeterUser\\Documents\\GitHub\\arealGL\\resources\\Shaders\\")
+#define MODEL_BASEPATH          std::string("C:\\Users\\PeterUser\\Documents\\GitHub\\arealGL\\resources\\Models\\")
 
 #define MAX_LIGHTS              4
 

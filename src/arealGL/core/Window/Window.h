@@ -34,12 +34,32 @@
 
 #include <string>
 #include <memory>
+#include <windows.h> 
 
-#include "glfw3.h"
-#include "IO_Events.h"
+#include "..\..\Config.h"
+#include "../IO/IO_Events.h"
 
 namespace arealGL {
     
+HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+void GLAPIENTRY GlobalErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
+    // Print (red) Error in case of DEBUG_SEVERITY_HIGH, DEBUG_SEVERITY_MEDIUM, DEBUG_SEVERITY_LOW
+    if (severity != GL_DEBUG_SEVERITY_NOTIFICATION)
+    {
+        SetConsoleTextAttribute(hConsole, 4);
+        std::cout << "[OpenGL Error](" << type << "): " << message << std::endl;
+    }
+    // Print (yellow) Warning in case of GL_DEBUG_SEVERITY_NOTIFICATION
+    else
+    {
+        SetConsoleTextAttribute(hConsole, 6);
+        std::cout << "[OpenGL Warning](" << type << "): " << message << std::endl;
+    }
+
+    // Reset the console text color to white
+    SetConsoleTextAttribute(hConsole, 7);
+}
+
 class Window {
     
 private:
@@ -52,14 +72,23 @@ public:
     Window(const std::string& titel, int width, int height, bool fullscreen) :_width(width), _height(height) {
         glfwInit();
         // settings needed for using OpenGL Version 410
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         // create the OpenGL-Context-Window
         if(!fullscreen) { _window = glfwCreateWindow(width, height, titel.c_str(), nullptr, nullptr); }
         else { _window = glfwCreateWindow(width, height, titel.c_str(), glfwGetPrimaryMonitor(), nullptr); }
         glfwMakeContextCurrent(_window);
+
+        // GLEW init only works after a OpenGL context was created
+        if (glewInit() != GLEW_OK)
+            return;
+
+        // Setup global Error/Warning debug output
+        glEnable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback(GlobalErrorCallback, 0);
+
         // Enable V-Sync
         glfwSwapInterval(1);
         // set some OpenGL options

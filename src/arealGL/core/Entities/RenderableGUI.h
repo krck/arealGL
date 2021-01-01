@@ -33,8 +33,7 @@
 #define RenderableGUI_h
 
 #include "Entity.h"
-#include "RenderQuad.h"
-#include "Vec2.h"
+#include "..\RenderData\RenderQuad.h"
 
 namespace arealGL {
     

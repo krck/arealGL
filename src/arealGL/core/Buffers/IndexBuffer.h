@@ -37,6 +37,7 @@
 // ---------------------------------------------------------
 
 #include "Buffer.h"
+#include "..\..\Config.h"
 
 namespace arealGL {
 

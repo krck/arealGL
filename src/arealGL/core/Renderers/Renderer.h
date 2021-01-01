@@ -37,11 +37,11 @@
 #include <queue>
 #include <memory>
 
-#include "Renderable3D.h"
-#include "RenderQuad.h"
-#include "Camera.h"
-#include "FrameBuffer.h"
-#include <mat4x4.hpp>
+#include "..\Entities\Renderable3D.h"
+#include "../RenderData/RenderQuad.h"
+#include "..\Entities\Camera.h"
+#include "..\Buffers\FrameBuffer.h"
+#include <glm\mat4x4.hpp>
 
 namespace arealGL {
 

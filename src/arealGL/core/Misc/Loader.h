@@ -40,18 +40,15 @@
 #include <vector>
 #include <memory>
 
-#include "Mesh.h"
-#include "Types.h"
-#include "Config.h"
+#include "..\RenderData\Mesh.h"
+#include "..\..\Types.h"
+#include "..\..\Config.h"
 
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
-#include <Importer.hpp>
-#include <scene.h>
-#include <postprocess.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <assimp\Importer.hpp>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
 
 namespace arealGL {
 
@@ -106,7 +103,7 @@ public:
             return nullptr;
         } else {
             // Retrieve the directory path of the filepath
-            const std::string directory = path.substr(0, path.find_last_of('/'));
+            const std::string directory = path.substr(0, path.find_last_of('\\'));
             std::vector<Mesh> tmpMeshes;
             // Process ASSIMP nodes recursively
             this->processNode(scene->mRootNode, scene, directory, tmpMeshes);
@@ -188,7 +185,7 @@ private:
         uint tmpTex = 0;
         material->GetTexture(type, 0, &str);
         if(str.length) {
-            const std::string tmpPath = dir + "/" + str.C_Str();
+            const std::string tmpPath = dir + "\\" + str.C_Str();
             // Check if The texture was already loaded and get it, else load it
             if(texturesLoaded.find(tmpPath) != texturesLoaded.end()) {
                 tmpTex = texturesLoaded[tmpPath];
