@@ -22,6 +22,9 @@ int main() {
     
     const glm::mat4 projection = glm::perspective(window.fieldOfView(), (window.width() / window.height()), 0.1f, 1000.0f);
     
+    // Check installed OpenGL Version
+    std::cout << glGetString(GL_VERSION) << std::endl;
+
     // Create Lights
     const Light sunLight = Light(glm::vec3(0.0f, 10.0f, -10.0f), CL_YELLOW_PALE, 0.8f);
     const Light leftLampLight = Light(glm::vec3(4.0f, 6.0f, 4.0f), CL_GREEN, glm::vec3(1.0f, 0.1f, 0.02f), 2.0f);

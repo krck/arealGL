@@ -27,9 +27,9 @@ public:
                 mesh.texture.bindNormalMap();
                 entity->shader->setMaterialUniforms(mesh.texture.getMaterial().spectralReflectivity, mesh.texture.getMaterial().shineDamper);
                 // Get the show on the road
-                glBindVertexArray(mesh.getVAO());
+                mesh.BindBuffer();
                 glDrawElements(GL_TRIANGLES, (int)mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
-                glBindVertexArray(0);
+                mesh.UnbindBuffer();
                 // Set everything back to defaults
                 mesh.texture.unbindNormalMap();
                 mesh.texture.unbindTexture();
