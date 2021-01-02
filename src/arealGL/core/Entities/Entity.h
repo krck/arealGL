@@ -18,13 +18,13 @@ protected:
     
 public:
     Entity(std::shared_ptr<Shader> shader)
-    : shader(shader), transform(glm::mat4()), color(Color()) { }
+    : shader(shader), transform(glm::mat4(1.0f)), color(Color()) { }
     
     Entity(std::shared_ptr<Shader> shader, const Color& color)
-    : shader(shader), transform(glm::mat4()), color(color) { }
+    : shader(shader), transform(glm::mat4(1.0f)), color(color) { }
     
     Entity(std::shared_ptr<Shader> shader, Color&& color)
-    : shader(shader), transform(glm::mat4()), color(std::move(color)) { }
+    : shader(shader), transform(glm::mat4(1.0f)), color(std::move(color)) { }
     
     inline void setColor(const Color& color) { this->color = color; }
     inline void setColor(Color&& color) noexcept { this->color = std::move(color); }
