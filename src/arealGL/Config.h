@@ -18,8 +18,8 @@
 #define KEY_CODES               512
 #define KEY_BUFFER_SZ           4
 
-#define MIP_MAPPING             true
-#define ANISOTROPIC_FILTERING   true
+#define MIP_MAPPING             1
+#define ANISOTROPIC_FILTERING   1
 
 #define MSAA                    8       // 0 - 2 - 4 - 8
 

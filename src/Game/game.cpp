@@ -16,8 +16,8 @@ int main() {
     const KeyboardClient& keyboard = window.keyboardClient();
     Loader loader = Loader();
     BatchRenderer batchRender = BatchRenderer();
-    FrameBuffer fboMSAA = FrameBuffer(window.width(), window.height(), true);
-    FrameBuffer fboIntermediate = FrameBuffer(window.width(), window.height(), false);
+    //FrameBuffer fboMSAA = FrameBuffer(window.width(), window.height(), true);
+    //FrameBuffer fboIntermediate = FrameBuffer(window.width(), window.height(), false);
     Camera camera;
     
     const glm::mat4 projection = glm::perspective(window.fieldOfView(), (window.width() / window.height()), 0.1f, 1000.0f);
@@ -57,13 +57,13 @@ int main() {
     
     // MAIN LOOP
     while (!window.closed()) {
-        //window.clear();
+        window.clear();
         
         if(keyboard.KeyIsPressed(GLFW_KEY_A)) { camera.changePosition(MoveDirection::LEFT, 0.02f); }
         if(keyboard.KeyIsPressed(GLFW_KEY_D)) { camera.changePosition(MoveDirection::RIGHT, 0.02f); }
         if(keyboard.KeyIsPressed(GLFW_KEY_W)) { camera.changePosition(MoveDirection::FORWARD, 0.02f); }
         if(keyboard.KeyIsPressed(GLFW_KEY_S)) { camera.changePosition(MoveDirection::BACKWARD, 0.02f); }
-        camera.changeLineOfSight(mouse.GetMouseX(), mouse.GetMouseY(), true);
+        camera.changeLineOfSight((int)mouse.GetMouseX(), (int)mouse.GetMouseY(), true);
         
         // spin the box
         box->setAngle(0.01f);
@@ -76,13 +76,13 @@ int main() {
         batchRender.submit(rightLamp);
         
         // Render scene to the multisampled FrameBuffer
-        fboMSAA.setAsRenderTarget();
+        //fboMSAA.setAsRenderTarget();
         batchRender.render(camera, projection);
         // Combine multisampled scene into another FrameBuffer
-        fboMSAA.resolveToFBO(fboIntermediate);
-        // And render that to the actual Window
-        window.setAsRenderTarget();
-        batchRender.renderFBOtoDefaultScreen(*fboShader, renderQuad, fboIntermediate);
+        //fboMSAA.resolveToFBO(fboIntermediate);
+        //// And render that to the actual Window
+        //window.setAsRenderTarget();
+        //batchRender.renderFBOtoDefaultScreen(*fboShader, renderQuad, fboIntermediate);
 
         // Check for Errors
         const GLenum e = glGetError();

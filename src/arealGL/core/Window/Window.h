@@ -51,6 +51,7 @@ public:
         glfwMakeContextCurrent(_window);
 
         // GLEW init only works after a OpenGL context was created
+        glewExperimental = TRUE;
         if (glewInit() != GLEW_OK)
             return;
 

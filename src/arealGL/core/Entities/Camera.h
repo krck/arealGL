@@ -60,8 +60,8 @@ public:
     void changeLineOfSight(const int xpos, const int ypos, bool constrain) {
         const float xoffset = (xpos - lastX) * mouseSens;
         const float yoffset = (lastY - ypos) * mouseSens;
-        lastX = xpos;
-        lastY = ypos;
+        lastX = (float)xpos;
+        lastY = (float)ypos;
         yaw   += xoffset;
         pitch += yoffset;
         // Make sure that when pitch is out of bounds, screen doesn't get flipped

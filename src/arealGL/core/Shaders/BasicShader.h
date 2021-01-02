@@ -8,6 +8,7 @@ namespace arealGL {
 class BasicShader : public Shader {
 public:
     BasicShader() : Shader(SHADER_BASEPATH + "basicShader.vert", SHADER_BASEPATH + "basicShader.frag", true) {
+        bind();
         // Set the Attributes
         setAttribute(0, "position");
         setAttribute(1, "normal");
@@ -20,6 +21,7 @@ public:
         setUniform("u_projection");
         setUniform("u_view");
         setUniform("u_objectColor");
+        unbind();
     }
     
     void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const Color& color) const override {

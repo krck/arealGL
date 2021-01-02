@@ -41,7 +41,7 @@ public:
     void resolveToWindow(const Window& window) {
         glBindFramebuffer(GL_READ_FRAMEBUFFER, FBO);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-        glBlitFramebuffer(0, 0, width, height, 0, 0, window.width(), window.height(), GL_COLOR_BUFFER_BIT, GL_NEAREST);
+        glBlitFramebuffer(0, 0, width, height, 0, 0, (int)window.width(), (int)window.height(), GL_COLOR_BUFFER_BIT, GL_NEAREST);
     }
     
     void resolveToFBO(const FrameBuffer& fbo) {

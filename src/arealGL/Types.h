@@ -14,7 +14,7 @@ using uint16 = std::uint_fast16_t;
 using uint32 = std::uint_fast32_t;
 using uint64 = std::uint_fast64_t;
 // Default typedefs (normal int option, with a width of exactly (!) 32 or 64 bits) 
-using byte = std::uint8_t;
+using abyte = std::uint8_t;
 using ushort = std::uint16_t;
 using uint = std::uint32_t;
 using ulong = std::uint64_t;

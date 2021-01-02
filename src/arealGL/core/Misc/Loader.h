@@ -175,7 +175,7 @@ private:
         glGenTextures(1, &textureID);
         // get the texture data with the stb image lib
         int width = 0, height = 0, numComponents = 0;
-        byte* imageData = stbi_load(filename.c_str(), &width, &height, &numComponents, 4);
+        abyte* imageData = stbi_load(filename.c_str(), &width, &height, &numComponents, 4);
         if (imageData == nullptr) { std::cerr <<" ERROR: loading texture " <<std::endl; }
         // Assign texture to ID
         glBindTexture(GL_TEXTURE_2D, textureID);

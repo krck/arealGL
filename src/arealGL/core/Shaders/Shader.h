@@ -47,8 +47,8 @@ public:
         // The attached Shaders can be cleaned up
         glDetachShader(programID, vertexShader);
         glDetachShader(programID, fragmentShader);
-        glDeleteShader(vertexShader);
-        glDeleteShader(fragmentShader);
+        //glDeleteShader(vertexShader);
+        //glDeleteShader(fragmentShader);
     }
     
     // bind the shader to a program
@@ -83,7 +83,7 @@ protected:
     
 private:
     // add an OpenGL shader from a file to the program
-    uint createShader(const std::string& sh, const unsigned int& type) {
+    uint createShader(const std::string& sh, GLenum type) {
         const char* shader_source = sh.c_str();
         const int shader_length = (int)sh.length();
         uint shader = glCreateShader(type);

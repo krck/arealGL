@@ -12,6 +12,7 @@ private:
 public:
     LightShader(const std::vector<Light>& lights) : Shader(SHADER_BASEPATH + "lightShader.vert", SHADER_BASEPATH + "lightShader.frag", true) {
         this->lights = lights;
+        bind();
         // Set the Attributes
         setAttribute(0, "position");
         setAttribute(1, "normal");
@@ -33,6 +34,7 @@ public:
             setUniform("u_intensity[" + std::to_string(i) + "]");
             setUniform("u_attenuation[" + std::to_string(i) + "]");
         }
+        unbind();
     }
     
     void setModelUniforms(const glm::mat4& transform, const glm::mat4& view, const glm::mat4& projection, const Color& color) const override {
